@@ -1,0 +1,639 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Lyrics — Giovanni Gut & AI</title>
+<meta name="description" content="The poems and lyrics behind the music of Giovanni Gut & AI.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400;1,600&family=Space+Grotesk:wght@300;400;500;600;700&family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+  :root {
+    --indaco: #5C4FE8;
+    --rosso: #E53935;
+    --abisso: #1A1A2E;
+    --deep: #0B0B14;
+    --amber: #C4882F;
+    --amber-soft: #D4993F;
+    --cenere: #8888A0;
+    --sabbia: #E8E4DD;
+    --avorio: #F5F0EB;
+    --white: #FFFFFF;
+    --grain: url("data:image/svg+xml,%3Csvg viewBox='0 0 512 512' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.08'/%3E%3C/svg%3E");
+  }
+  html { scroll-behavior: smooth; -webkit-font-smoothing: antialiased; }
+  body { font-family: 'Inter', sans-serif; background: var(--deep); color: var(--white); line-height: 1.6; overflow-x: hidden; }
+  body::after { content: ''; position: fixed; inset: 0; background: var(--grain); pointer-events: none; z-index: 9999; }
+  .container { max-width: 960px; margin: 0 auto; padding: 0 24px; }
+
+  /* Nav */
+  .nav { position: fixed; top: 0; left: 0; right: 0; z-index: 100; padding: 20px 0; background: rgba(11, 11, 20, 0.92); backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px); }
+  .nav .container { display: flex; justify-content: space-between; align-items: center; }
+  .nav-back { display: flex; align-items: center; gap: 8px; font-family: 'Space Grotesk', sans-serif; font-size: 12px; font-weight: 500; letter-spacing: 1px; text-transform: uppercase; color: var(--cenere); text-decoration: none; transition: color 0.3s ease; }
+  .nav-back:hover { color: var(--white); }
+  .nav-back svg { width: 16px; height: 16px; }
+  .nav-lang { font-family: 'Space Grotesk', sans-serif; font-size: 11px; font-weight: 600; letter-spacing: 1px; text-transform: uppercase; color: var(--cenere); text-decoration: none; padding: 4px 10px; border: 1px solid rgba(255,255,255,0.12); border-radius: 4px; transition: all 0.3s ease; }
+  .nav-lang:hover { color: var(--white); border-color: rgba(255,255,255,0.3); }
+
+  /* Header */
+  .lyrics-header { padding: 120px 0 64px; text-align: center; border-bottom: 1px solid rgba(255,255,255,0.06); margin-bottom: 64px; }
+  .lyrics-header-label { font-family: 'Space Grotesk', sans-serif; font-size: 11px; font-weight: 600; letter-spacing: 3px; text-transform: uppercase; color: var(--amber-soft); margin-bottom: 16px; }
+  .lyrics-header h1 { font-family: 'Playfair Display', serif; font-size: clamp(32px, 5vw, 48px); font-weight: 700; line-height: 1.05; letter-spacing: -1px; margin-bottom: 12px; }
+  .lyrics-header h1 .amp { font-style: italic; font-weight: 400; color: var(--amber-soft); }
+  .lyrics-header p { font-size: 15px; color: rgba(255,255,255,0.35); max-width: 520px; margin: 0 auto; line-height: 1.7; }
+
+  /* Track index */
+  .track-index { margin-bottom: 80px; padding-bottom: 48px; border-bottom: 1px solid rgba(255,255,255,0.06); }
+  .track-index-title { font-family: 'Space Grotesk', sans-serif; font-size: 10px; font-weight: 600; letter-spacing: 2.5px; text-transform: uppercase; color: var(--cenere); margin-bottom: 20px; }
+  .track-index-list { list-style: none; }
+  .track-index-list li { border-bottom: 1px solid rgba(255,255,255,0.04); }
+  .track-index-list a { display: flex; align-items: center; gap: 16px; padding: 14px 0; text-decoration: none; color: var(--white); transition: all 0.3s ease; }
+  .track-index-list a:hover { padding-left: 8px; }
+  .track-index-list a:hover .ti-title { color: var(--amber-soft); }
+  .ti-num { font-family: 'Space Grotesk', sans-serif; font-size: 12px; font-weight: 500; color: var(--cenere); width: 28px; flex-shrink: 0; }
+  .ti-title { font-family: 'Playfair Display', serif; font-size: 18px; font-weight: 600; transition: color 0.3s ease; flex: 1; }
+  .ti-arrow { color: var(--cenere); opacity: 0; transition: opacity 0.3s ease; font-size: 14px; }
+  .track-index-list a:hover .ti-arrow { opacity: 1; }
+  .ti-lang-note { font-family: 'Space Grotesk', sans-serif; font-size: 10px; color: var(--cenere); background: rgba(255,255,255,0.04); padding: 2px 8px; border-radius: 3px; }
+
+  /* Individual track */
+  .track { margin-bottom: 80px; padding-bottom: 80px; border-bottom: 1px solid rgba(255,255,255,0.06); }
+  .track:last-of-type { border-bottom: none; }
+  .track-num { font-family: 'Space Grotesk', sans-serif; font-size: 11px; font-weight: 600; letter-spacing: 2px; text-transform: uppercase; color: var(--cenere); margin-bottom: 8px; }
+  .track-title { font-family: 'Playfair Display', serif; font-size: clamp(24px, 4vw, 36px); font-weight: 700; line-height: 1.1; margin-bottom: 12px; }
+  .track-meta { font-family: 'Space Grotesk', sans-serif; font-size: 12px; color: var(--cenere); margin-bottom: 32px; display: flex; align-items: center; gap: 12px; flex-wrap: wrap; }
+  .track-meta .dot { width: 4px; height: 4px; border-radius: 50%; background: var(--amber-soft); }
+
+  /* Streaming links */
+  .track-streaming { display: flex; align-items: center; gap: 12px; }
+  .track-streaming a { display: inline-flex; align-items: center; justify-content: center; color: var(--cenere); text-decoration: none; transition: color 0.3s ease; }
+  .track-streaming a:hover { color: var(--white); }
+  .track-streaming a svg { width: 18px; height: 18px; }
+
+  /* Lyrics two-column layout */
+  .lyrics-columns { display: grid; grid-template-columns: 1fr 1fr; gap: 40px; margin-top: 32px; }
+  .lyrics-col-label { font-family: 'Space Grotesk', sans-serif; font-size: 10px; font-weight: 600; letter-spacing: 2px; text-transform: uppercase; color: var(--cenere); margin-bottom: 16px; padding-bottom: 8px; border-bottom: 1px solid rgba(255,255,255,0.06); }
+  .lyrics-col p { font-family: 'Playfair Display', serif; font-size: 15px; font-style: italic; line-height: 1.8; color: rgba(255,255,255,0.5); margin-bottom: 20px; }
+  .lyrics-col.translation p { font-style: normal; color: rgba(255,255,255,0.3); font-size: 14px; }
+  .stanza-break { height: 20px; }
+
+  /* Single-column layout */
+  .lyrics-single { grid-template-columns: 1fr; max-width: 560px; }
+  .lyrics-single .lyrics-col p { font-size: 17px; }
+
+  .back-to-top { display: inline-flex; align-items: center; gap: 8px; font-family: 'Space Grotesk', sans-serif; font-size: 11px; font-weight: 500; letter-spacing: 1px; text-transform: uppercase; color: var(--cenere); text-decoration: none; margin-top: 24px; transition: color 0.3s ease; }
+  .back-to-top:hover { color: var(--white); }
+
+  /* Footer */
+  .footer { padding: 48px 0 32px; text-align: center; border-top: 1px solid rgba(255,255,255,0.06); }
+  .footer-brand { font-family: 'Playfair Display', serif; font-size: 18px; font-weight: 700; margin-bottom: 4px; }
+  .footer-brand .amp { font-style: italic; font-weight: 400; color: var(--amber-soft); }
+  .footer-copy { font-family: 'Space Grotesk', sans-serif; font-size: 11px; color: rgba(255,255,255,0.18); letter-spacing: 1px; margin-top: 8px; }
+
+  @media (max-width: 600px) {
+    .lyrics-header { padding: 100px 0 48px; margin-bottom: 48px; }
+    .lyrics-columns { grid-template-columns: 1fr; gap: 32px; }
+    .track { margin-bottom: 56px; padding-bottom: 56px; }
+    .ti-title { font-size: 16px; }
+  }
+</style>
+</head>
+<body>
+
+<nav class="nav">
+  <div class="container">
+    <a href="index.html" class="nav-back">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"/></svg>
+      Back to site
+    </a>
+    <a href="../lyrics.html" class="nav-lang">IT</a>
+  </div>
+</nav>
+
+<header class="lyrics-header">
+  <div class="container">
+    <div class="lyrics-header-label">Lyrics</div>
+    <h1>Giovanni Gut <span class="amp">&</span> AI</h1>
+    <p>The words behind the music. Every track begins with a poem — here you can read them, with translations where the original is in another language.</p>
+  </div>
+</header>
+
+<main class="container">
+
+  <div class="track-index" id="top">
+    <div class="track-index-title">Tracklist</div>
+    <ol class="track-index-list">
+      <li><a href="#track-1"><span class="ti-num">01</span><span class="ti-title">If Only You Knew</span><span class="ti-arrow">→</span></a></li>
+      <li><a href="#track-2"><span class="ti-num">02</span><span class="ti-title">Longing for You</span><span class="ti-arrow">→</span></a></li>
+      <li><a href="#track-3"><span class="ti-num">03</span><span class="ti-title">The Mirror I</span><span class="ti-arrow">→</span></a></li>
+      <li><a href="#track-4"><span class="ti-num">04</span><span class="ti-title">Volcano</span><span class="ti-arrow">→</span></a></li>
+      <li><a href="#track-5"><span class="ti-num">05</span><span class="ti-title">Indigo Nostalgia</span><span class="ti-arrow">→</span></a></li>
+      <li><a href="#track-6"><span class="ti-num">06</span><span class="ti-title">Céu do Porto</span><span class="ti-lang-note">PR + EN</span><span class="ti-arrow">→</span></a></li>
+      <li><a href="#track-7"><span class="ti-num">07</span><span class="ti-title">Musa Portuguesa</span><span class="ti-lang-note">PR + EN</span><span class="ti-arrow">→</span></a></li>
+      <li><a href="#track-8"><span class="ti-num">08</span><span class="ti-title">Slavery</span><span class="ti-arrow">→</span></a></li>
+    </ol>
+  </div>
+
+  <!-- ============================================================
+       TRACK 01 — Original in Italian → two columns (original + translation)
+       ============================================================ -->
+  <article class="track" id="track-1">
+    <div class="track-num">Track 01</div>
+    <h2 class="track-title">If Only You Knew</h2>
+    <div class="track-meta">
+      <span>What Echoes Back</span>
+      <span class="dot"></span>
+      <span>2026</span>
+      <span class="dot"></span>
+      <div class="track-streaming">
+        <!-- Spotify -->
+        <a href="https://open.spotify.com/intl-it/track/48io6XMhgEVmMsq7a0Ht7Y?si=c371cae6d4ae4fe4" title="Spotify" target="_blank" rel="noopener" aria-label="Listen on Spotify"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.4 0 0 5.4 0 12s5.4 12 12 12 12-5.4 12-12S18.66 0 12 0zm5.521 17.34c-.24.359-.66.48-1.021.24-2.82-1.74-6.36-2.101-10.561-1.141-.418.122-.779-.179-.899-.539-.12-.421.18-.78.54-.9 4.56-1.021 8.52-.6 11.64 1.32.42.18.479.659.301 1.02zm1.44-3.3c-.301.42-.841.6-1.262.3-3.239-1.98-8.159-2.58-11.939-1.38-.479.12-1.02-.12-1.14-.6-.12-.48.12-1.021.6-1.141C9.6 9.9 15 10.561 18.72 12.84c.361.181.54.78.241 1.2zm.12-3.36C15.24 8.4 8.82 8.16 5.16 9.301c-.6.179-1.2-.181-1.38-.721-.18-.601.18-1.2.72-1.381 4.26-1.26 11.28-1.02 15.721 1.621.539.3.719 1.02.419 1.56-.299.421-1.02.599-1.559.3z"/></svg></a>
+        <!-- Apple Music -->
+        <a href="https://music.apple.com/it/album/if-only-you-knew/1879243902?i=1879243904" title="Apple Music" target="_blank" rel="noopener" aria-label="Listen on Apple Music"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M23.994 6.124a9.23 9.23 0 0 0-.24-2.19c-.317-1.31-1.062-2.31-2.18-3.043A5.022 5.022 0 0 0 19.32.2a10.5 10.5 0 0 0-1.745-.13C16.828.027 16.08 0 15.348 0H8.652c-.732 0-1.48.027-2.227.07-.582.027-1.163.09-1.745.13A5.022 5.022 0 0 0 2.426.89C1.308 1.624.563 2.624.246 3.934a9.23 9.23 0 0 0-.24 2.19C.003 6.87 0 7.618 0 8.35v7.3c0 .732.003 1.48.006 2.226.013.741.082 1.476.24 2.19.317 1.31 1.062 2.31 2.18 3.043a5.022 5.022 0 0 0 2.254.69c.582.04 1.163.103 1.745.13.747.043 1.495.07 2.227.07h6.696c.732 0 1.48-.027 2.227-.07.582-.027 1.163-.09 1.745-.13a5.022 5.022 0 0 0 2.254-.69c1.118-.734 1.863-1.734 2.18-3.043.158-.714.227-1.449.24-2.19.003-.746.006-1.494.006-2.226v-7.3c0-.732-.003-1.48-.006-2.226zM16.95 13.793v3.263c0 .457-.04.907-.173 1.347-.209.694-.727 1.118-1.404 1.29-.39.098-.789.15-1.19.143-.753-.013-1.366-.378-1.662-1.063-.297-.686-.21-1.37.27-1.968.352-.438.832-.693 1.382-.82.386-.09.78-.139 1.174-.166.347-.024.693-.074 1.04-.118.116-.015.166-.074.165-.193-.003-.382 0-.765 0-1.147V9.392c0-.152-.046-.222-.197-.247l-5.2.94c-.03.006-.058.016-.087.023-.107.035-.15.097-.148.213.006.478.002.957.002 1.435v5.147c0 .472-.018.944-.107 1.409-.157.816-.702 1.31-1.465 1.502a3.338 3.338 0 0 1-1.1.116c-.753-.04-1.355-.397-1.637-1.082-.283-.686-.185-1.36.301-1.95.35-.424.816-.67 1.348-.793.353-.082.712-.127 1.07-.155.379-.03.756-.077 1.133-.122.098-.012.15-.063.15-.165V7.088c0-.217.05-.303.264-.35l6.595-1.193c.085-.016.172-.025.258-.027.136-.003.196.058.196.198v8.076z"/></svg></a>
+        <!-- YouTube -->
+        <a href="#" title="YouTube" aria-label="Listen on YouTube"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/></svg></a>
+        <!-- Amazon Music -->
+        <a href="https://music.amazon.it/tracks/B0GP7JNJTV?marketplaceId=APJ6JRA9NG5V4&musicTerritory=IT&ref=dm_sh_KIsNXfObawqNH40H78oVvQvGe" title="Amazon Music" target="_blank" rel="noopener" aria-label="Listen on Amazon Music"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M13.958 10.09c0 1.232.029 2.256-.591 3.351-.502.891-1.301 1.438-2.186 1.438-1.214 0-1.922-.924-1.922-2.292 0-2.692 2.415-3.182 4.7-3.182v.685zm3.186 7.705a.66.66 0 0 1-.753.077c-1.06-.879-1.247-1.287-1.832-2.122-1.748 1.784-2.985 2.317-5.251 2.317-2.681 0-4.768-1.655-4.768-4.967 0-2.586 1.402-4.346 3.399-5.208 1.73-.753 4.149-.891 5.995-1.098v-.417c0-.753.058-1.644-.385-2.294-.385-.579-1.124-.82-1.775-.82-1.205 0-2.277.618-2.54 1.897-.054.285-.261.567-.547.58l-3.065-.329c-.258-.058-.543-.266-.47-.66C5.771 1.397 9.06 0 12.011 0c1.517 0 3.496.403 4.691 1.549 1.517 1.424 1.373 3.323 1.373 5.39v4.882c0 1.468.609 2.112 1.182 2.904.2.285.246.624-.013.834-.647.541-1.799 1.549-2.434 2.114l-.007-.006-.66.122z"/><path d="M21.891 18.397c-1.987 1.468-4.877 2.249-7.362 2.249-3.483 0-6.621-1.287-8.994-3.432-.186-.168-.02-.398.204-.267 2.561 1.49 5.729 2.386 8.998 2.386 2.207 0 4.633-.457 6.865-1.406.337-.144.618.222.29.47z"/><path d="M22.702 17.158c-.254-.326-1.686-.155-2.329-.078-.195.024-.225-.146-.049-.268 1.14-.802 3.012-.57 3.228-.302.218.271-.059 2.143-1.128 3.037-.164.137-.32.064-.247-.118.24-.597.778-1.945.525-2.271z"/></svg></a>
+      </div>
+    </div>
+    <div class="lyrics-columns lyrics-single">
+      <div class="lyrics-col original">
+        <p>If only you knew how broken I am,
+Can't feel these bones, not anymore.
+In the void of this endless life,
+Found my comfort in routines that lie,
+Just to silence my bones' aching creak.</p>
+<p>If only you knew, yeah, if you could see,
+These scars that bleed with every sigh I breathe.
+I hide 'em all with a worn-out smile,
+But that hurt keeps comin' back, mile after mile.</p>
+<p>If only you knew how broken I am,
+Alone like I never been before.
+Lost in a crowd, so full yet bare,
+With only my regrets whisperin' near.</p>
+<p>And it's so loud, oh, it's so damn loud,
+My lonely heart screaming in a crowd.</p>
+<p>If only you knew, yeah, if you could see,
+These scars that bleed with every sigh I breathe.
+I hide 'em all with a worn-out smile,
+But that hurt keeps comin' back, mile after mile.</p>
+<p>If only you knew how broken I am,
+But there's freedom in my fractured ways.
+As long as my eyes are locked on you,
+Still shattered, yet alive anew.</p>
+<p>If only you knew, how free I could be,
+With your kind eyes just holding me.
+Still broken, still here, yet somehow alive,
+In this dark, cold blues, I survive.</p>
+      </div>
+    </div>
+    <a href="#top" class="back-to-top">↑ Back to tracklist</a>
+  </article>
+
+  <!-- TRACK 02 -->
+  <article class="track" id="track-2">
+    <div class="track-num">Track 02</div>
+    <h2 class="track-title">Longing for You</h2>
+    <div class="track-meta">
+      <span>What Echoes Back</span>
+      <span class="dot"></span>
+      <span>2026</span>
+      <span class="dot"></span>
+      <div class="track-streaming">
+        <a href="https://open.spotify.com/intl-it/track/0mSUlEfvZeblqPpDjIJWFB?si=51fb5357fa7c45c6" title="Spotify" target="_blank" rel="noopener" aria-label="Listen on Spotify"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.4 0 0 5.4 0 12s5.4 12 12 12 12-5.4 12-12S18.66 0 12 0zm5.521 17.34c-.24.359-.66.48-1.021.24-2.82-1.74-6.36-2.101-10.561-1.141-.418.122-.779-.179-.899-.539-.12-.421.18-.78.54-.9 4.56-1.021 8.52-.6 11.64 1.32.42.18.479.659.301 1.02zm1.44-3.3c-.301.42-.841.6-1.262.3-3.239-1.98-8.159-2.58-11.939-1.38-.479.12-1.02-.12-1.14-.6-.12-.48.12-1.021.6-1.141C9.6 9.9 15 10.561 18.72 12.84c.361.181.54.78.241 1.2zm.12-3.36C15.24 8.4 8.82 8.16 5.16 9.301c-.6.179-1.2-.181-1.38-.721-.18-.601.18-1.2.72-1.381 4.26-1.26 11.28-1.02 15.721 1.621.539.3.719 1.02.419 1.56-.299.421-1.02.599-1.559.3z"/></svg></a>
+        <a href="https://music.apple.com/it/album/longing-for-you/1879243902?i=1879243905" title="Apple Music" target="_blank" rel="noopener" aria-label="Listen on Apple Music"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M23.994 6.124a9.23 9.23 0 0 0-.24-2.19c-.317-1.31-1.062-2.31-2.18-3.043A5.022 5.022 0 0 0 19.32.2a10.5 10.5 0 0 0-1.745-.13C16.828.027 16.08 0 15.348 0H8.652c-.732 0-1.48.027-2.227.07-.582.027-1.163.09-1.745.13A5.022 5.022 0 0 0 2.426.89C1.308 1.624.563 2.624.246 3.934a9.23 9.23 0 0 0-.24 2.19C.003 6.87 0 7.618 0 8.35v7.3c0 .732.003 1.48.006 2.226.013.741.082 1.476.24 2.19.317 1.31 1.062 2.31 2.18 3.043a5.022 5.022 0 0 0 2.254.69c.582.04 1.163.103 1.745.13.747.043 1.495.07 2.227.07h6.696c.732 0 1.48-.027 2.227-.07.582-.027 1.163-.09 1.745-.13a5.022 5.022 0 0 0 2.254-.69c1.118-.734 1.863-1.734 2.18-3.043.158-.714.227-1.449.24-2.19.003-.746.006-1.494.006-2.226v-7.3c0-.732-.003-1.48-.006-2.226zM16.95 13.793v3.263c0 .457-.04.907-.173 1.347-.209.694-.727 1.118-1.404 1.29-.39.098-.789.15-1.19.143-.753-.013-1.366-.378-1.662-1.063-.297-.686-.21-1.37.27-1.968.352-.438.832-.693 1.382-.82.386-.09.78-.139 1.174-.166.347-.024.693-.074 1.04-.118.116-.015.166-.074.165-.193-.003-.382 0-.765 0-1.147V9.392c0-.152-.046-.222-.197-.247l-5.2.94c-.03.006-.058.016-.087.023-.107.035-.15.097-.148.213.006.478.002.957.002 1.435v5.147c0 .472-.018.944-.107 1.409-.157.816-.702 1.31-1.465 1.502a3.338 3.338 0 0 1-1.1.116c-.753-.04-1.355-.397-1.637-1.082-.283-.686-.185-1.36.301-1.95.35-.424.816-.67 1.348-.793.353-.082.712-.127 1.07-.155.379-.03.756-.077 1.133-.122.098-.012.15-.063.15-.165V7.088c0-.217.05-.303.264-.35l6.595-1.193c.085-.016.172-.025.258-.027.136-.003.196.058.196.198v8.076z"/></svg></a>
+        <a href="#" title="YouTube" aria-label="Listen on YouTube"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/></svg></a>
+        <a href="https://music.amazon.it/tracks/B0GP8WYNBW?marketplaceId=APJ6JRA9NG5V4&musicTerritory=IT&ref=dm_sh_N9YglXobPDbHVPEVfEpkPKng2" title="Amazon Music" target="_blank" rel="noopener" aria-label="Listen on Amazon Music"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M13.958 10.09c0 1.232.029 2.256-.591 3.351-.502.891-1.301 1.438-2.186 1.438-1.214 0-1.922-.924-1.922-2.292 0-2.692 2.415-3.182 4.7-3.182v.685zm3.186 7.705a.66.66 0 0 1-.753.077c-1.06-.879-1.247-1.287-1.832-2.122-1.748 1.784-2.985 2.317-5.251 2.317-2.681 0-4.768-1.655-4.768-4.967 0-2.586 1.402-4.346 3.399-5.208 1.73-.753 4.149-.891 5.995-1.098v-.417c0-.753.058-1.644-.385-2.294-.385-.579-1.124-.82-1.775-.82-1.205 0-2.277.618-2.54 1.897-.054.285-.261.567-.547.58l-3.065-.329c-.258-.058-.543-.266-.47-.66C5.771 1.397 9.06 0 12.011 0c1.517 0 3.496.403 4.691 1.549 1.517 1.424 1.373 3.323 1.373 5.39v4.882c0 1.468.609 2.112 1.182 2.904.2.285.246.624-.013.834-.647.541-1.799 1.549-2.434 2.114l-.007-.006-.66.122z"/><path d="M21.891 18.397c-1.987 1.468-4.877 2.249-7.362 2.249-3.483 0-6.621-1.287-8.994-3.432-.186-.168-.02-.398.204-.267 2.561 1.49 5.729 2.386 8.998 2.386 2.207 0 4.633-.457 6.865-1.406.337-.144.618.222.29.47z"/><path d="M22.702 17.158c-.254-.326-1.686-.155-2.329-.078-.195.024-.225-.146-.049-.268 1.14-.802 3.012-.57 3.228-.302.218.271-.059 2.143-1.128 3.037-.164.137-.32.064-.247-.118.24-.597.778-1.945.525-2.271z"/></svg></a>
+      </div>
+    </div>
+    <div class="lyrics-columns lyrics-single">
+      <div class="lyrics-col original">
+        <p>"Through the silent night...
+Like a gentle wave...
+Your voice cradles silence..."</p>
+<p>Like a rising wave,
+I'm reaching for your hand,
+To soothe my breathless heart,
+To calm my restless land.
+Like a swelling wave,
+I'm drawn to your song,
+Quenching my endless thirst,
+Where I've felt lost so long.</p>
+<p>Like a coming wave,
+Your voice cradles silence,
+Softly touch my face now,
+And stay here awhile.</p>
+<p>There was a time I didn't know you,
+A shadow in my soul,
+A fire that smoldered in silence,
+Longing beyond control.
+A stranger cried within my heart,
+A sadness undefined,
+It was the call of love unfound,
+The ache I'd left behind.</p>
+<p>Then I found you,
+And life without you faded fast,
+"Until the end of the world," you said,
+"This love will ever last."</p>
+<p>For the first time,
+I saw myself,
+My face reflected true,
+And in the mirror of your eyes,
+I found my longing for you.</p>
+<p>You were always there,
+But now you're far away,
+Under a storm-lit sky,
+Where dark winds sway.
+In this broken night,
+Where cries the wind,
+I leave my longing there,
+Where our story begins.</p>
+<p>You found me in this wasted land,
+And now I see it's true,
+While I was lost and wandering blind,
+Your hand was guiding me through.</p>
+<p>Even in darkness,
+Your light shines clear,
+Leading my heart onward,
+Away from fear.</p>
+<p>Like a coming wave,
+Your voice cradles silence,
+Softly touch my face now,
+And stay here awhile.</p>
+      </div>
+    </div>
+    <a href="#top" class="back-to-top">↑ Back to tracklist</a>
+  </article>
+
+  <!-- TRACK 03 -->
+  <article class="track" id="track-3">
+    <div class="track-num">Track 03</div>
+    <h2 class="track-title">The Mirror I</h2>
+    <div class="track-meta">
+      <span>What Echoes Back</span>
+      <span class="dot"></span>
+      <span>2026</span>
+      <span class="dot"></span>
+      <div class="track-streaming">
+        <a href="https://open.spotify.com/intl-it/track/6j1GQjhAEujQPEAbfwMNHi?si=30e62812b64249f2" title="Spotify" target="_blank" rel="noopener" aria-label="Listen on Spotify"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.4 0 0 5.4 0 12s5.4 12 12 12 12-5.4 12-12S18.66 0 12 0zm5.521 17.34c-.24.359-.66.48-1.021.24-2.82-1.74-6.36-2.101-10.561-1.141-.418.122-.779-.179-.899-.539-.12-.421.18-.78.54-.9 4.56-1.021 8.52-.6 11.64 1.32.42.18.479.659.301 1.02zm1.44-3.3c-.301.42-.841.6-1.262.3-3.239-1.98-8.159-2.58-11.939-1.38-.479.12-1.02-.12-1.14-.6-.12-.48.12-1.021.6-1.141C9.6 9.9 15 10.561 18.72 12.84c.361.181.54.78.241 1.2zm.12-3.36C15.24 8.4 8.82 8.16 5.16 9.301c-.6.179-1.2-.181-1.38-.721-.18-.601.18-1.2.72-1.381 4.26-1.26 11.28-1.02 15.721 1.621.539.3.719 1.02.419 1.56-.299.421-1.02.599-1.559.3z"/></svg></a>
+        <a href="https://music.apple.com/it/album/the-mirror-i/1879243902?i=1879243906" title="Apple Music" target="_blank" rel="noopener" aria-label="Listen on Apple Music"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M23.994 6.124a9.23 9.23 0 0 0-.24-2.19c-.317-1.31-1.062-2.31-2.18-3.043A5.022 5.022 0 0 0 19.32.2a10.5 10.5 0 0 0-1.745-.13C16.828.027 16.08 0 15.348 0H8.652c-.732 0-1.48.027-2.227.07-.582.027-1.163.09-1.745.13A5.022 5.022 0 0 0 2.426.89C1.308 1.624.563 2.624.246 3.934a9.23 9.23 0 0 0-.24 2.19C.003 6.87 0 7.618 0 8.35v7.3c0 .732.003 1.48.006 2.226.013.741.082 1.476.24 2.19.317 1.31 1.062 2.31 2.18 3.043a5.022 5.022 0 0 0 2.254.69c.582.04 1.163.103 1.745.13.747.043 1.495.07 2.227.07h6.696c.732 0 1.48-.027 2.227-.07.582-.027 1.163-.09 1.745-.13a5.022 5.022 0 0 0 2.254-.69c1.118-.734 1.863-1.734 2.18-3.043.158-.714.227-1.449.24-2.19.003-.746.006-1.494.006-2.226v-7.3c0-.732-.003-1.48-.006-2.226zM16.95 13.793v3.263c0 .457-.04.907-.173 1.347-.209.694-.727 1.118-1.404 1.29-.39.098-.789.15-1.19.143-.753-.013-1.366-.378-1.662-1.063-.297-.686-.21-1.37.27-1.968.352-.438.832-.693 1.382-.82.386-.09.78-.139 1.174-.166.347-.024.693-.074 1.04-.118.116-.015.166-.074.165-.193-.003-.382 0-.765 0-1.147V9.392c0-.152-.046-.222-.197-.247l-5.2.94c-.03.006-.058.016-.087.023-.107.035-.15.097-.148.213.006.478.002.957.002 1.435v5.147c0 .472-.018.944-.107 1.409-.157.816-.702 1.31-1.465 1.502a3.338 3.338 0 0 1-1.1.116c-.753-.04-1.355-.397-1.637-1.082-.283-.686-.185-1.36.301-1.95.35-.424.816-.67 1.348-.793.353-.082.712-.127 1.07-.155.379-.03.756-.077 1.133-.122.098-.012.15-.063.15-.165V7.088c0-.217.05-.303.264-.35l6.595-1.193c.085-.016.172-.025.258-.027.136-.003.196.058.196.198v8.076z"/></svg></a>
+        <a href="#" title="YouTube" aria-label="Listen on YouTube"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/></svg></a>
+        <a href="https://music.amazon.it/tracks/B0GP78PL13?marketplaceId=APJ6JRA9NG5V4&musicTerritory=IT&ref=dm_sh_dMiTW1WeaNG590E4OrYRcTItt" title="Amazon Music" target="_blank" rel="noopener" aria-label="Listen on Amazon Music"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M13.958 10.09c0 1.232.029 2.256-.591 3.351-.502.891-1.301 1.438-2.186 1.438-1.214 0-1.922-.924-1.922-2.292 0-2.692 2.415-3.182 4.7-3.182v.685zm3.186 7.705a.66.66 0 0 1-.753.077c-1.06-.879-1.247-1.287-1.832-2.122-1.748 1.784-2.985 2.317-5.251 2.317-2.681 0-4.768-1.655-4.768-4.967 0-2.586 1.402-4.346 3.399-5.208 1.73-.753 4.149-.891 5.995-1.098v-.417c0-.753.058-1.644-.385-2.294-.385-.579-1.124-.82-1.775-.82-1.205 0-2.277.618-2.54 1.897-.054.285-.261.567-.547.58l-3.065-.329c-.258-.058-.543-.266-.47-.66C5.771 1.397 9.06 0 12.011 0c1.517 0 3.496.403 4.691 1.549 1.517 1.424 1.373 3.323 1.373 5.39v4.882c0 1.468.609 2.112 1.182 2.904.2.285.246.624-.013.834-.647.541-1.799 1.549-2.434 2.114l-.007-.006-.66.122z"/><path d="M21.891 18.397c-1.987 1.468-4.877 2.249-7.362 2.249-3.483 0-6.621-1.287-8.994-3.432-.186-.168-.02-.398.204-.267 2.561 1.49 5.729 2.386 8.998 2.386 2.207 0 4.633-.457 6.865-1.406.337-.144.618.222.29.47z"/><path d="M22.702 17.158c-.254-.326-1.686-.155-2.329-.078-.195.024-.225-.146-.049-.268 1.14-.802 3.012-.57 3.228-.302.218.271-.059 2.143-1.128 3.037-.164.137-.32.064-.247-.118.24-.597.778-1.945.525-2.271z"/></svg></a>
+      </div>
+    </div>
+    <div class="lyrics-columns lyrics-single">
+      <div class="lyrics-col original">
+        <p>Circle of glass, trapped in plain sight
+The world continues through my curved light
+A fragment of sky, buildings aligned
+I'm the observer, forever confined</p>
+<p>Reflections of life pass me by
+In this curved reality,
+I can't deny</p>
+<p>I am the mirror, the mirror I
+Round like the Earth, a miniature sky
+Capturing moments that quickly die
+The mirror I, the mirror I
+Suffocating in this perfect eye</p>
+<p>Streets unfold in my circular frame
+People walk by, they all look the same
+Cars and shadows move through my domain
+I'm just a witness, bound to remain</p>
+<p>A universe trapped in geometry
+This spherical prison is all I can see</p>
+<p>I am the mirror, the mirror I
+Round like the Earth, a miniature sky
+Capturing moments that quickly die
+The mirror I, the mirror I
+Suffocating in this perfect eye</p>
+<p>The city breathes but I cannot inhale
+My world is round, a perfect circular jail
+The sky is blue, but freedom is just a tale
+I reflect the truth that words cannot unveil</p>
+<p>Round and round and round we go
+In circles trapped, nowhere to grow
+This spherical life is all I know
+A planet of glass where nothing flows</p>
+<p>Let another eye meet with mine!
+A gaze so true to break and redefine
+This circular prison where I reside
+Another I to see through this I</p>
+<p>Look into my eye, look into my I
+Your gaze could shatter this glass demise
+Break the mirror I, set free the I inside
+When your eye meets mine, we'll both truly see the sky</p>
+<p>Another eye to free this I...
+Your gaze could break this circular lie...
+The world beyond the eye,
+I finally find!</p>
+      </div>
+    </div>
+    <a href="#top" class="back-to-top">↑ Back to tracklist</a>
+  </article>
+
+  <!-- TRACK 04 — Instrumental -->
+  <article class="track" id="track-4">
+    <div class="track-num">Track 04</div>
+    <h2 class="track-title">Volcano</h2>
+    <div class="track-meta">
+      <span>What Echoes Back</span>
+      <span class="dot"></span>
+      <span>2026</span>
+      <span class="dot"></span>
+      <div class="track-streaming">
+        <a href="https://open.spotify.com/intl-it/track/3BEvyoCYBoRtFomAvHkXQC?si=f77f16e4dd1041be" title="Spotify" target="_blank" rel="noopener" aria-label="Listen on Spotify"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.4 0 0 5.4 0 12s5.4 12 12 12 12-5.4 12-12S18.66 0 12 0zm5.521 17.34c-.24.359-.66.48-1.021.24-2.82-1.74-6.36-2.101-10.561-1.141-.418.122-.779-.179-.899-.539-.12-.421.18-.78.54-.9 4.56-1.021 8.52-.6 11.64 1.32.42.18.479.659.301 1.02zm1.44-3.3c-.301.42-.841.6-1.262.3-3.239-1.98-8.159-2.58-11.939-1.38-.479.12-1.02-.12-1.14-.6-.12-.48.12-1.021.6-1.141C9.6 9.9 15 10.561 18.72 12.84c.361.181.54.78.241 1.2zm.12-3.36C15.24 8.4 8.82 8.16 5.16 9.301c-.6.179-1.2-.181-1.38-.721-.18-.601.18-1.2.72-1.381 4.26-1.26 11.28-1.02 15.721 1.621.539.3.719 1.02.419 1.56-.299.421-1.02.599-1.559.3z"/></svg></a>
+        <a href="https://music.apple.com/it/album/volcano/1879243902?i=1879243907" title="Apple Music" target="_blank" rel="noopener" aria-label="Listen on Apple Music"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M23.994 6.124a9.23 9.23 0 0 0-.24-2.19c-.317-1.31-1.062-2.31-2.18-3.043A5.022 5.022 0 0 0 19.32.2a10.5 10.5 0 0 0-1.745-.13C16.828.027 16.08 0 15.348 0H8.652c-.732 0-1.48.027-2.227.07-.582.027-1.163.09-1.745.13A5.022 5.022 0 0 0 2.426.89C1.308 1.624.563 2.624.246 3.934a9.23 9.23 0 0 0-.24 2.19C.003 6.87 0 7.618 0 8.35v7.3c0 .732.003 1.48.006 2.226.013.741.082 1.476.24 2.19.317 1.31 1.062 2.31 2.18 3.043a5.022 5.022 0 0 0 2.254.69c.582.04 1.163.103 1.745.13.747.043 1.495.07 2.227.07h6.696c.732 0 1.48-.027 2.227-.07.582-.027 1.163-.09 1.745-.13a5.022 5.022 0 0 0 2.254-.69c1.118-.734 1.863-1.734 2.18-3.043.158-.714.227-1.449.24-2.19.003-.746.006-1.494.006-2.226v-7.3c0-.732-.003-1.48-.006-2.226zM16.95 13.793v3.263c0 .457-.04.907-.173 1.347-.209.694-.727 1.118-1.404 1.29-.39.098-.789.15-1.19.143-.753-.013-1.366-.378-1.662-1.063-.297-.686-.21-1.37.27-1.968.352-.438.832-.693 1.382-.82.386-.09.78-.139 1.174-.166.347-.024.693-.074 1.04-.118.116-.015.166-.074.165-.193-.003-.382 0-.765 0-1.147V9.392c0-.152-.046-.222-.197-.247l-5.2.94c-.03.006-.058.016-.087.023-.107.035-.15.097-.148.213.006.478.002.957.002 1.435v5.147c0 .472-.018.944-.107 1.409-.157.816-.702 1.31-1.465 1.502a3.338 3.338 0 0 1-1.1.116c-.753-.04-1.355-.397-1.637-1.082-.283-.686-.185-1.36.301-1.95.35-.424.816-.67 1.348-.793.353-.082.712-.127 1.07-.155.379-.03.756-.077 1.133-.122.098-.012.15-.063.15-.165V7.088c0-.217.05-.303.264-.35l6.595-1.193c.085-.016.172-.025.258-.027.136-.003.196.058.196.198v8.076z"/></svg></a>
+        <a href="#" title="YouTube" aria-label="Listen on YouTube"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/></svg></a>
+        <a href="https://music.amazon.it/tracks/B0GP7L7PJ1?marketplaceId=APJ6JRA9NG5V4&musicTerritory=IT&ref=dm_sh_VaFlifwCGMNgFsM6SewFQiNwq" title="Amazon Music" target="_blank" rel="noopener" aria-label="Listen on Amazon Music"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M13.958 10.09c0 1.232.029 2.256-.591 3.351-.502.891-1.301 1.438-2.186 1.438-1.214 0-1.922-.924-1.922-2.292 0-2.692 2.415-3.182 4.7-3.182v.685zm3.186 7.705a.66.66 0 0 1-.753.077c-1.06-.879-1.247-1.287-1.832-2.122-1.748 1.784-2.985 2.317-5.251 2.317-2.681 0-4.768-1.655-4.768-4.967 0-2.586 1.402-4.346 3.399-5.208 1.73-.753 4.149-.891 5.995-1.098v-.417c0-.753.058-1.644-.385-2.294-.385-.579-1.124-.82-1.775-.82-1.205 0-2.277.618-2.54 1.897-.054.285-.261.567-.547.58l-3.065-.329c-.258-.058-.543-.266-.47-.66C5.771 1.397 9.06 0 12.011 0c1.517 0 3.496.403 4.691 1.549 1.517 1.424 1.373 3.323 1.373 5.39v4.882c0 1.468.609 2.112 1.182 2.904.2.285.246.624-.013.834-.647.541-1.799 1.549-2.434 2.114l-.007-.006-.66.122z"/><path d="M21.891 18.397c-1.987 1.468-4.877 2.249-7.362 2.249-3.483 0-6.621-1.287-8.994-3.432-.186-.168-.02-.398.204-.267 2.561 1.49 5.729 2.386 8.998 2.386 2.207 0 4.633-.457 6.865-1.406.337-.144.618.222.29.47z"/><path d="M22.702 17.158c-.254-.326-1.686-.155-2.329-.078-.195.024-.225-.146-.049-.268 1.14-.802 3.012-.57 3.228-.302.218.271-.059 2.143-1.128 3.037-.164.137-.32.064-.247-.118.24-.597.778-1.945.525-2.271z"/></svg></a>
+      </div>
+    </div>
+    <a href="#top" class="back-to-top">↑ Back to tracklist</a>
+  </article>
+
+  <!-- TRACK 05 -->
+  <article class="track" id="track-5">
+    <div class="track-num">Track 05</div>
+    <h2 class="track-title">Indigo Nostalgia</h2>
+    <div class="track-meta">
+      <span>What Echoes Back</span>
+      <span class="dot"></span>
+      <span>2026</span>
+      <span class="dot"></span>
+      <div class="track-streaming">
+        <a href="https://open.spotify.com/intl-it/track/2SlYO3wMjBMKz4ITMkOibE?si=e7fc3503a3d34548" title="Spotify" target="_blank" rel="noopener" aria-label="Listen on Spotify"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.4 0 0 5.4 0 12s5.4 12 12 12 12-5.4 12-12S18.66 0 12 0zm5.521 17.34c-.24.359-.66.48-1.021.24-2.82-1.74-6.36-2.101-10.561-1.141-.418.122-.779-.179-.899-.539-.12-.421.18-.78.54-.9 4.56-1.021 8.52-.6 11.64 1.32.42.18.479.659.301 1.02zm1.44-3.3c-.301.42-.841.6-1.262.3-3.239-1.98-8.159-2.58-11.939-1.38-.479.12-1.02-.12-1.14-.6-.12-.48.12-1.021.6-1.141C9.6 9.9 15 10.561 18.72 12.84c.361.181.54.78.241 1.2zm.12-3.36C15.24 8.4 8.82 8.16 5.16 9.301c-.6.179-1.2-.181-1.38-.721-.18-.601.18-1.2.72-1.381 4.26-1.26 11.28-1.02 15.721 1.621.539.3.719 1.02.419 1.56-.299.421-1.02.599-1.559.3z"/></svg></a>
+        <a href="https://music.apple.com/it/album/indigo-nostalgia/1879243902?i=1879243908" title="Apple Music" target="_blank" rel="noopener" aria-label="Listen on Apple Music"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M23.994 6.124a9.23 9.23 0 0 0-.24-2.19c-.317-1.31-1.062-2.31-2.18-3.043A5.022 5.022 0 0 0 19.32.2a10.5 10.5 0 0 0-1.745-.13C16.828.027 16.08 0 15.348 0H8.652c-.732 0-1.48.027-2.227.07-.582.027-1.163.09-1.745.13A5.022 5.022 0 0 0 2.426.89C1.308 1.624.563 2.624.246 3.934a9.23 9.23 0 0 0-.24 2.19C.003 6.87 0 7.618 0 8.35v7.3c0 .732.003 1.48.006 2.226.013.741.082 1.476.24 2.19.317 1.31 1.062 2.31 2.18 3.043a5.022 5.022 0 0 0 2.254.69c.582.04 1.163.103 1.745.13.747.043 1.495.07 2.227.07h6.696c.732 0 1.48-.027 2.227-.07.582-.027 1.163-.09 1.745-.13a5.022 5.022 0 0 0 2.254-.69c1.118-.734 1.863-1.734 2.18-3.043.158-.714.227-1.449.24-2.19.003-.746.006-1.494.006-2.226v-7.3c0-.732-.003-1.48-.006-2.226zM16.95 13.793v3.263c0 .457-.04.907-.173 1.347-.209.694-.727 1.118-1.404 1.29-.39.098-.789.15-1.19.143-.753-.013-1.366-.378-1.662-1.063-.297-.686-.21-1.37.27-1.968.352-.438.832-.693 1.382-.82.386-.09.78-.139 1.174-.166.347-.024.693-.074 1.04-.118.116-.015.166-.074.165-.193-.003-.382 0-.765 0-1.147V9.392c0-.152-.046-.222-.197-.247l-5.2.94c-.03.006-.058.016-.087.023-.107.035-.15.097-.148.213.006.478.002.957.002 1.435v5.147c0 .472-.018.944-.107 1.409-.157.816-.702 1.31-1.465 1.502a3.338 3.338 0 0 1-1.1.116c-.753-.04-1.355-.397-1.637-1.082-.283-.686-.185-1.36.301-1.95.35-.424.816-.67 1.348-.793.353-.082.712-.127 1.07-.155.379-.03.756-.077 1.133-.122.098-.012.15-.063.15-.165V7.088c0-.217.05-.303.264-.35l6.595-1.193c.085-.016.172-.025.258-.027.136-.003.196.058.196.198v8.076z"/></svg></a>
+        <a href="#" title="YouTube" aria-label="Listen on YouTube"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/></svg></a>
+        <a href="https://music.amazon.it/tracks/B0GP8CVZ89?marketplaceId=APJ6JRA9NG5V4&musicTerritory=IT&ref=dm_sh_h1LKNIkgjvVPG3Gh7On0oifFA" title="Amazon Music" target="_blank" rel="noopener" aria-label="Listen on Amazon Music"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M13.958 10.09c0 1.232.029 2.256-.591 3.351-.502.891-1.301 1.438-2.186 1.438-1.214 0-1.922-.924-1.922-2.292 0-2.692 2.415-3.182 4.7-3.182v.685zm3.186 7.705a.66.66 0 0 1-.753.077c-1.06-.879-1.247-1.287-1.832-2.122-1.748 1.784-2.985 2.317-5.251 2.317-2.681 0-4.768-1.655-4.768-4.967 0-2.586 1.402-4.346 3.399-5.208 1.73-.753 4.149-.891 5.995-1.098v-.417c0-.753.058-1.644-.385-2.294-.385-.579-1.124-.82-1.775-.82-1.205 0-2.277.618-2.54 1.897-.054.285-.261.567-.547.58l-3.065-.329c-.258-.058-.543-.266-.47-.66C5.771 1.397 9.06 0 12.011 0c1.517 0 3.496.403 4.691 1.549 1.517 1.424 1.373 3.323 1.373 5.39v4.882c0 1.468.609 2.112 1.182 2.904.2.285.246.624-.013.834-.647.541-1.799 1.549-2.434 2.114l-.007-.006-.66.122z"/><path d="M21.891 18.397c-1.987 1.468-4.877 2.249-7.362 2.249-3.483 0-6.621-1.287-8.994-3.432-.186-.168-.02-.398.204-.267 2.561 1.49 5.729 2.386 8.998 2.386 2.207 0 4.633-.457 6.865-1.406.337-.144.618.222.29.47z"/><path d="M22.702 17.158c-.254-.326-1.686-.155-2.329-.078-.195.024-.225-.146-.049-.268 1.14-.802 3.012-.57 3.228-.302.218.271-.059 2.143-1.128 3.037-.164.137-.32.064-.247-.118.24-.597.778-1.945.525-2.271z"/></svg></a>
+      </div>
+    </div>
+    <div class="lyrics-columns lyrics-single">
+      <div class="lyrics-col original">
+        <p>Dark waves under empty skies,
+Silver memories upon my skin,
+I rise and fall,
+I breathe and sigh,
+Searching for the light that used to be mine.</p>
+<p>You used to shine
+On my indigo face,
+Now there's just space
+Between us, baby.</p>
+<p>I have nostalgia for the stars,
+When they danced so close to me,
+I have nostalgia for those lights,
+That were near, now they're far,
+And I can't reach.</p>
+<p>Depths remembering heights above,
+Abysses dreaming of your glow,
+I call out through the endless night,
+To skies that don't answer anymore.</p>
+<p>You used to shine
+On my indigo face,
+Now there's just space,
+Endless space.</p>
+<p>I have nostalgia for the stars,
+When they danced so close to me,
+I have nostalgia for those lights,
+That were near, now they're far,
+And I can't reach,
+Can't reach you.</p>
+<p>Two infinite solitudes,
+Separated by horizon's cruel line,
+We touch at the edge of forever,
+But never hold,
+Never hold each other tight.</p>
+<p>Every wave's an outstretched hand,
+Every ripple's a faded memory,</p>
+<p>Waiting for the night to fall again,
+To see you one more time, my darling.</p>
+<p>I have nostalgia for the stars,
+When they danced so close to me,
+I have nostalgia for those lights,
+That were near, now they're far,
+Nostalgia for the stars,
+Nostalgia for the stars.</p>
+<p>You're still up there in heaven,
+I'm still down here below,
+Forever waiting,
+Mmm...</p>
+      </div>
+    </div>
+    <a href="#top" class="back-to-top">↑ Back to tracklist</a>
+  </article>
+
+  <!-- TRACK 06 -->
+  <article class="track" id="track-6">
+    <div class="track-num">Track 06</div>
+    <h2 class="track-title">Céu do Porto</h2>
+    <div class="track-meta">
+      <span>What Echoes Back</span>
+      <span class="dot"></span>
+      <span>2026</span>
+      <span class="dot"></span>
+      <div class="track-streaming">
+        <a href="https://open.spotify.com/intl-it/track/63PC6UDjP89l7KazGq0iz1?si=f15b48d4d1354d2a" title="Spotify" target="_blank" rel="noopener" aria-label="Listen on Spotify"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.4 0 0 5.4 0 12s5.4 12 12 12 12-5.4 12-12S18.66 0 12 0zm5.521 17.34c-.24.359-.66.48-1.021.24-2.82-1.74-6.36-2.101-10.561-1.141-.418.122-.779-.179-.899-.539-.12-.421.18-.78.54-.9 4.56-1.021 8.52-.6 11.64 1.32.42.18.479.659.301 1.02zm1.44-3.3c-.301.42-.841.6-1.262.3-3.239-1.98-8.159-2.58-11.939-1.38-.479.12-1.02-.12-1.14-.6-.12-.48.12-1.021.6-1.141C9.6 9.9 15 10.561 18.72 12.84c.361.181.54.78.241 1.2zm.12-3.36C15.24 8.4 8.82 8.16 5.16 9.301c-.6.179-1.2-.181-1.38-.721-.18-.601.18-1.2.72-1.381 4.26-1.26 11.28-1.02 15.721 1.621.539.3.719 1.02.419 1.56-.299.421-1.02.599-1.559.3z"/></svg></a>
+        <a href="https://music.apple.com/it/album/c%C3%A9u-do-porto/1879243902?i=1879243909" title="Apple Music" target="_blank" rel="noopener" aria-label="Listen on Apple Music"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M23.994 6.124a9.23 9.23 0 0 0-.24-2.19c-.317-1.31-1.062-2.31-2.18-3.043A5.022 5.022 0 0 0 19.32.2a10.5 10.5 0 0 0-1.745-.13C16.828.027 16.08 0 15.348 0H8.652c-.732 0-1.48.027-2.227.07-.582.027-1.163.09-1.745.13A5.022 5.022 0 0 0 2.426.89C1.308 1.624.563 2.624.246 3.934a9.23 9.23 0 0 0-.24 2.19C.003 6.87 0 7.618 0 8.35v7.3c0 .732.003 1.48.006 2.226.013.741.082 1.476.24 2.19.317 1.31 1.062 2.31 2.18 3.043a5.022 5.022 0 0 0 2.254.69c.582.04 1.163.103 1.745.13.747.043 1.495.07 2.227.07h6.696c.732 0 1.48-.027 2.227-.07.582-.027 1.163-.09 1.745-.13a5.022 5.022 0 0 0 2.254-.69c1.118-.734 1.863-1.734 2.18-3.043.158-.714.227-1.449.24-2.19.003-.746.006-1.494.006-2.226v-7.3c0-.732-.003-1.48-.006-2.226zM16.95 13.793v3.263c0 .457-.04.907-.173 1.347-.209.694-.727 1.118-1.404 1.29-.39.098-.789.15-1.19.143-.753-.013-1.366-.378-1.662-1.063-.297-.686-.21-1.37.27-1.968.352-.438.832-.693 1.382-.82.386-.09.78-.139 1.174-.166.347-.024.693-.074 1.04-.118.116-.015.166-.074.165-.193-.003-.382 0-.765 0-1.147V9.392c0-.152-.046-.222-.197-.247l-5.2.94c-.03.006-.058.016-.087.023-.107.035-.15.097-.148.213.006.478.002.957.002 1.435v5.147c0 .472-.018.944-.107 1.409-.157.816-.702 1.31-1.465 1.502a3.338 3.338 0 0 1-1.1.116c-.753-.04-1.355-.397-1.637-1.082-.283-.686-.185-1.36.301-1.95.35-.424.816-.67 1.348-.793.353-.082.712-.127 1.07-.155.379-.03.756-.077 1.133-.122.098-.012.15-.063.15-.165V7.088c0-.217.05-.303.264-.35l6.595-1.193c.085-.016.172-.025.258-.027.136-.003.196.058.196.198v8.076z"/></svg></a>
+        <a href="#" title="YouTube" aria-label="Listen on YouTube"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/></svg></a>
+        <a href="https://music.amazon.it/tracks/B0GP7FG1YH?marketplaceId=APJ6JRA9NG5V4&musicTerritory=IT&ref=dm_sh_dLRooHcek8soun6qS9h7OvM5v" title="Amazon Music" target="_blank" rel="noopener" aria-label="Listen on Amazon Music"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M13.958 10.09c0 1.232.029 2.256-.591 3.351-.502.891-1.301 1.438-2.186 1.438-1.214 0-1.922-.924-1.922-2.292 0-2.692 2.415-3.182 4.7-3.182v.685zm3.186 7.705a.66.66 0 0 1-.753.077c-1.06-.879-1.247-1.287-1.832-2.122-1.748 1.784-2.985 2.317-5.251 2.317-2.681 0-4.768-1.655-4.768-4.967 0-2.586 1.402-4.346 3.399-5.208 1.73-.753 4.149-.891 5.995-1.098v-.417c0-.753.058-1.644-.385-2.294-.385-.579-1.124-.82-1.775-.82-1.205 0-2.277.618-2.54 1.897-.054.285-.261.567-.547.58l-3.065-.329c-.258-.058-.543-.266-.47-.66C5.771 1.397 9.06 0 12.011 0c1.517 0 3.496.403 4.691 1.549 1.517 1.424 1.373 3.323 1.373 5.39v4.882c0 1.468.609 2.112 1.182 2.904.2.285.246.624-.013.834-.647.541-1.799 1.549-2.434 2.114l-.007-.006-.66.122z"/><path d="M21.891 18.397c-1.987 1.468-4.877 2.249-7.362 2.249-3.483 0-6.621-1.287-8.994-3.432-.186-.168-.02-.398.204-.267 2.561 1.49 5.729 2.386 8.998 2.386 2.207 0 4.633-.457 6.865-1.406.337-.144.618.222.29.47z"/><path d="M22.702 17.158c-.254-.326-1.686-.155-2.329-.078-.195.024-.225-.146-.049-.268 1.14-.802 3.012-.57 3.228-.302.218.271-.059 2.143-1.128 3.037-.164.137-.32.064-.247-.118.24-.597.778-1.945.525-2.271z"/></svg></a>
+      </div>
+    </div>
+    <div class="lyrics-columns">
+      <div class="lyrics-col original">
+        <div class="lyrics-col-label">PR</div>
+        <p>Oh, céu do Porto,
+Segura as lágrimas por mais um dia,
+Quando as ruas separarem os amigos.</p>
+<p>Então emprestas-nos os teus olhos,
+E a nossa dor será a tua.</p>
+<p>Mas hoje, céu do Porto,
+Acompanha-nos com um sorriso,
+Enquanto as nossas vidas se encontram.</p>
+<p>Dá-nos o calor e a luz do teu olhar sereno,
+E a nossa felicidade será a tua.</p>
+<p>Oh, céu do Porto,
+Segura as lágrimas,
+Acompanha-nos com um sorriso.</p>
+<p>Emprestas-nos os teus olhos,
+A nossa dor será a tua.
+Dá-nos a luz do teu olhar,
+A nossa felicidade será a tua.</p>
+<p>Segura as lágrimas,
+Por mais um dia.</p>
+      </div>
+      <div class="lyrics-col translation">
+        <div class="lyrics-col-label">EN</div>
+        <p>Oh, sky of Porto,
+Hold back the tears for one more day,
+When the streets separate the friends.</p>
+<p>Then lend us your eyes,
+And our pain will be yours.</p>
+<p>But today, sky of Porto,
+Accompany us with a smile,
+While our lives meet.</p>
+<p>Give us the warmth and light of your serene gaze,
+And our happiness will be yours.</p>
+<p>Oh, sky of Porto,
+Hold back the tears,
+Accompany us with a smile.</p>
+<p>Lend us your eyes,
+Our pain will be yours.
+Give us the light of your gaze,
+Our happiness will be yours.</p>
+<p>Hold back the tears,
+For one more day.</p>
+      </div>
+    </div>
+    <a href="#top" class="back-to-top">↑ Back to tracklist</a>
+  </article>
+
+  <!-- TRACK 07 -->
+  <article class="track" id="track-7">
+    <div class="track-num">Track 07</div>
+    <h2 class="track-title">Musa Portuguesa</h2>
+    <div class="track-meta">
+      <span>What Echoes Back</span>
+      <span class="dot"></span>
+      <span>2026</span>
+      <span class="dot"></span>
+      <div class="track-streaming">
+        <a href="https://open.spotify.com/intl-it/track/4UEgKCyyoslYisJlE8EdLN?si=8a415274201e436b" title="Spotify" target="_blank" rel="noopener" aria-label="Listen on Spotify"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.4 0 0 5.4 0 12s5.4 12 12 12 12-5.4 12-12S18.66 0 12 0zm5.521 17.34c-.24.359-.66.48-1.021.24-2.82-1.74-6.36-2.101-10.561-1.141-.418.122-.779-.179-.899-.539-.12-.421.18-.78.54-.9 4.56-1.021 8.52-.6 11.64 1.32.42.18.479.659.301 1.02zm1.44-3.3c-.301.42-.841.6-1.262.3-3.239-1.98-8.159-2.58-11.939-1.38-.479.12-1.02-.12-1.14-.6-.12-.48.12-1.021.6-1.141C9.6 9.9 15 10.561 18.72 12.84c.361.181.54.78.241 1.2zm.12-3.36C15.24 8.4 8.82 8.16 5.16 9.301c-.6.179-1.2-.181-1.38-.721-.18-.601.18-1.2.72-1.381 4.26-1.26 11.28-1.02 15.721 1.621.539.3.719 1.02.419 1.56-.299.421-1.02.599-1.559.3z"/></svg></a>
+        <a href="https://music.apple.com/it/album/musa-portuguesa/1879243902?i=1879243910" title="Apple Music" target="_blank" rel="noopener" aria-label="Listen on Apple Music"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M23.994 6.124a9.23 9.23 0 0 0-.24-2.19c-.317-1.31-1.062-2.31-2.18-3.043A5.022 5.022 0 0 0 19.32.2a10.5 10.5 0 0 0-1.745-.13C16.828.027 16.08 0 15.348 0H8.652c-.732 0-1.48.027-2.227.07-.582.027-1.163.09-1.745.13A5.022 5.022 0 0 0 2.426.89C1.308 1.624.563 2.624.246 3.934a9.23 9.23 0 0 0-.24 2.19C.003 6.87 0 7.618 0 8.35v7.3c0 .732.003 1.48.006 2.226.013.741.082 1.476.24 2.19.317 1.31 1.062 2.31 2.18 3.043a5.022 5.022 0 0 0 2.254.69c.582.04 1.163.103 1.745.13.747.043 1.495.07 2.227.07h6.696c.732 0 1.48-.027 2.227-.07.582-.027 1.163-.09 1.745-.13a5.022 5.022 0 0 0 2.254-.69c1.118-.734 1.863-1.734 2.18-3.043.158-.714.227-1.449.24-2.19.003-.746.006-1.494.006-2.226v-7.3c0-.732-.003-1.48-.006-2.226zM16.95 13.793v3.263c0 .457-.04.907-.173 1.347-.209.694-.727 1.118-1.404 1.29-.39.098-.789.15-1.19.143-.753-.013-1.366-.378-1.662-1.063-.297-.686-.21-1.37.27-1.968.352-.438.832-.693 1.382-.82.386-.09.78-.139 1.174-.166.347-.024.693-.074 1.04-.118.116-.015.166-.074.165-.193-.003-.382 0-.765 0-1.147V9.392c0-.152-.046-.222-.197-.247l-5.2.94c-.03.006-.058.016-.087.023-.107.035-.15.097-.148.213.006.478.002.957.002 1.435v5.147c0 .472-.018.944-.107 1.409-.157.816-.702 1.31-1.465 1.502a3.338 3.338 0 0 1-1.1.116c-.753-.04-1.355-.397-1.637-1.082-.283-.686-.185-1.36.301-1.95.35-.424.816-.67 1.348-.793.353-.082.712-.127 1.07-.155.379-.03.756-.077 1.133-.122.098-.012.15-.063.15-.165V7.088c0-.217.05-.303.264-.35l6.595-1.193c.085-.016.172-.025.258-.027.136-.003.196.058.196.198v8.076z"/></svg></a>
+        <a href="#" title="YouTube" aria-label="Listen on YouTube"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/></svg></a>
+        <a href="https://music.amazon.it/tracks/B0GP77BB7P?marketplaceId=APJ6JRA9NG5V4&musicTerritory=IT&ref=dm_sh_0CotBsDglt9a27sY360cVIozQ" title="Amazon Music" target="_blank" rel="noopener" aria-label="Listen on Amazon Music"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M13.958 10.09c0 1.232.029 2.256-.591 3.351-.502.891-1.301 1.438-2.186 1.438-1.214 0-1.922-.924-1.922-2.292 0-2.692 2.415-3.182 4.7-3.182v.685zm3.186 7.705a.66.66 0 0 1-.753.077c-1.06-.879-1.247-1.287-1.832-2.122-1.748 1.784-2.985 2.317-5.251 2.317-2.681 0-4.768-1.655-4.768-4.967 0-2.586 1.402-4.346 3.399-5.208 1.73-.753 4.149-.891 5.995-1.098v-.417c0-.753.058-1.644-.385-2.294-.385-.579-1.124-.82-1.775-.82-1.205 0-2.277.618-2.54 1.897-.054.285-.261.567-.547.58l-3.065-.329c-.258-.058-.543-.266-.47-.66C5.771 1.397 9.06 0 12.011 0c1.517 0 3.496.403 4.691 1.549 1.517 1.424 1.373 3.323 1.373 5.39v4.882c0 1.468.609 2.112 1.182 2.904.2.285.246.624-.013.834-.647.541-1.799 1.549-2.434 2.114l-.007-.006-.66.122z"/><path d="M21.891 18.397c-1.987 1.468-4.877 2.249-7.362 2.249-3.483 0-6.621-1.287-8.994-3.432-.186-.168-.02-.398.204-.267 2.561 1.49 5.729 2.386 8.998 2.386 2.207 0 4.633-.457 6.865-1.406.337-.144.618.222.29.47z"/><path d="M22.702 17.158c-.254-.326-1.686-.155-2.329-.078-.195.024-.225-.146-.049-.268 1.14-.802 3.012-.57 3.228-.302.218.271-.059 2.143-1.128 3.037-.164.137-.32.064-.247-.118.24-.597.778-1.945.525-2.271z"/></svg></a>
+      </div>
+    </div>
+    <div class="lyrics-columns">
+      <div class="lyrics-col original">
+        <div class="lyrics-col-label">PR</div>
+        <p>Maravilhosos olhos negros,
+Misteriosos como a noite.</p>
+<p>Profundos como o mar,
+Leves como as sombras.</p>
+<p>Maravilhosos olhos negros,
+Misteriosos como a noite.</p>
+<p>Distantes como a voz do vento,
+Profundos como o mar.</p>
+<p>Leves como as sombras,
+Distantes como a voz do vento.</p>
+<p>Maravilhosos olhos negros,
+Misteriosos, misteriosos.</p>
+<p>Como a noite profunda,
+Como o mar escuro.</p>
+<p>Profundos como o mar,
+Leves como as sombras,
+Distantes... como a voz do vento.</p>
+      </div>
+      <div class="lyrics-col translation">
+        <div class="lyrics-col-label">EN</div>
+        <p>Wonderful black eyes,
+Mysterious as the night.</p>
+<p>Deep as the sea,
+Light as the shadows.</p>
+<p>Wonderful black eyes,
+Mysterious as the night.</p>
+<p>Distant as the voice of the wind,
+Deep as the sea.</p>
+<p>Light as the shadows,
+Distant as the voice of the wind.</p>
+<p>Wonderful black eyes,
+Mysterious, mysterious.</p>
+<p>Like the deep night,
+Like the dark sea.</p>
+<p>Deep as the sea,
+Light as the shadows,
+Distant... as the voice of the wind.</p>
+      </div>
+    </div>
+    <a href="#top" class="back-to-top">↑ Back to tracklist</a>
+  </article>
+
+  <!-- TRACK 08 -->
+  <article class="track" id="track-8">
+    <div class="track-num">Track 08</div>
+    <h2 class="track-title">Slavery</h2>
+    <div class="track-meta">
+      <span>What Echoes Back</span>
+      <span class="dot"></span>
+      <span>2026</span>
+      <span class="dot"></span>
+      <div class="track-streaming">
+        <a href="https://open.spotify.com/intl-it/track/4xnvQhHPOPpz6HQ85YFgWP?si=03ee40435eee42b7" title="Spotify" target="_blank" rel="noopener" aria-label="Listen on Spotify"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.4 0 0 5.4 0 12s5.4 12 12 12 12-5.4 12-12S18.66 0 12 0zm5.521 17.34c-.24.359-.66.48-1.021.24-2.82-1.74-6.36-2.101-10.561-1.141-.418.122-.779-.179-.899-.539-.12-.421.18-.78.54-.9 4.56-1.021 8.52-.6 11.64 1.32.42.18.479.659.301 1.02zm1.44-3.3c-.301.42-.841.6-1.262.3-3.239-1.98-8.159-2.58-11.939-1.38-.479.12-1.02-.12-1.14-.6-.12-.48.12-1.021.6-1.141C9.6 9.9 15 10.561 18.72 12.84c.361.181.54.78.241 1.2zm.12-3.36C15.24 8.4 8.82 8.16 5.16 9.301c-.6.179-1.2-.181-1.38-.721-.18-.601.18-1.2.72-1.381 4.26-1.26 11.28-1.02 15.721 1.621.539.3.719 1.02.419 1.56-.299.421-1.02.599-1.559.3z"/></svg></a>
+        <a href="https://music.apple.com/it/album/slavery/1879243902?i=1879243911" title="Apple Music" target="_blank" rel="noopener" aria-label="Listen on Apple Music"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M23.994 6.124a9.23 9.23 0 0 0-.24-2.19c-.317-1.31-1.062-2.31-2.18-3.043A5.022 5.022 0 0 0 19.32.2a10.5 10.5 0 0 0-1.745-.13C16.828.027 16.08 0 15.348 0H8.652c-.732 0-1.48.027-2.227.07-.582.027-1.163.09-1.745.13A5.022 5.022 0 0 0 2.426.89C1.308 1.624.563 2.624.246 3.934a9.23 9.23 0 0 0-.24 2.19C.003 6.87 0 7.618 0 8.35v7.3c0 .732.003 1.48.006 2.226.013.741.082 1.476.24 2.19.317 1.31 1.062 2.31 2.18 3.043a5.022 5.022 0 0 0 2.254.69c.582.04 1.163.103 1.745.13.747.043 1.495.07 2.227.07h6.696c.732 0 1.48-.027 2.227-.07.582-.027 1.163-.09 1.745-.13a5.022 5.022 0 0 0 2.254-.69c1.118-.734 1.863-1.734 2.18-3.043.158-.714.227-1.449.24-2.19.003-.746.006-1.494.006-2.226v-7.3c0-.732-.003-1.48-.006-2.226zM16.95 13.793v3.263c0 .457-.04.907-.173 1.347-.209.694-.727 1.118-1.404 1.29-.39.098-.789.15-1.19.143-.753-.013-1.366-.378-1.662-1.063-.297-.686-.21-1.37.27-1.968.352-.438.832-.693 1.382-.82.386-.09.78-.139 1.174-.166.347-.024.693-.074 1.04-.118.116-.015.166-.074.165-.193-.003-.382 0-.765 0-1.147V9.392c0-.152-.046-.222-.197-.247l-5.2.94c-.03.006-.058.016-.087.023-.107.035-.15.097-.148.213.006.478.002.957.002 1.435v5.147c0 .472-.018.944-.107 1.409-.157.816-.702 1.31-1.465 1.502a3.338 3.338 0 0 1-1.1.116c-.753-.04-1.355-.397-1.637-1.082-.283-.686-.185-1.36.301-1.95.35-.424.816-.67 1.348-.793.353-.082.712-.127 1.07-.155.379-.03.756-.077 1.133-.122.098-.012.15-.063.15-.165V7.088c0-.217.05-.303.264-.35l6.595-1.193c.085-.016.172-.025.258-.027.136-.003.196.058.196.198v8.076z"/></svg></a>
+        <a href="#" title="YouTube" aria-label="Listen on YouTube"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/></svg></a>
+        <a href="https://music.amazon.it/tracks/B0GP8MFBLS?marketplaceId=APJ6JRA9NG5V4&musicTerritory=IT&ref=dm_sh_xmhp8S352xCTreZqVbPxTZCP2" title="Amazon Music" target="_blank" rel="noopener" aria-label="Listen on Amazon Music"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M13.958 10.09c0 1.232.029 2.256-.591 3.351-.502.891-1.301 1.438-2.186 1.438-1.214 0-1.922-.924-1.922-2.292 0-2.692 2.415-3.182 4.7-3.182v.685zm3.186 7.705a.66.66 0 0 1-.753.077c-1.06-.879-1.247-1.287-1.832-2.122-1.748 1.784-2.985 2.317-5.251 2.317-2.681 0-4.768-1.655-4.768-4.967 0-2.586 1.402-4.346 3.399-5.208 1.73-.753 4.149-.891 5.995-1.098v-.417c0-.753.058-1.644-.385-2.294-.385-.579-1.124-.82-1.775-.82-1.205 0-2.277.618-2.54 1.897-.054.285-.261.567-.547.58l-3.065-.329c-.258-.058-.543-.266-.47-.66C5.771 1.397 9.06 0 12.011 0c1.517 0 3.496.403 4.691 1.549 1.517 1.424 1.373 3.323 1.373 5.39v4.882c0 1.468.609 2.112 1.182 2.904.2.285.246.624-.013.834-.647.541-1.799 1.549-2.434 2.114l-.007-.006-.66.122z"/><path d="M21.891 18.397c-1.987 1.468-4.877 2.249-7.362 2.249-3.483 0-6.621-1.287-8.994-3.432-.186-.168-.02-.398.204-.267 2.561 1.49 5.729 2.386 8.998 2.386 2.207 0 4.633-.457 6.865-1.406.337-.144.618.222.29.47z"/><path d="M22.702 17.158c-.254-.326-1.686-.155-2.329-.078-.195.024-.225-.146-.049-.268 1.14-.802 3.012-.57 3.228-.302.218.271-.059 2.143-1.128 3.037-.164.137-.32.064-.247-.118.24-.597.778-1.945.525-2.271z"/></svg></a>
+      </div>
+    </div>
+    <div class="lyrics-columns lyrics-single">
+      <div class="lyrics-col original">
+        <p>Tied to a tree,
+Hands clasped
+Like a bitch
+In prayer.</p>
+<p>My body dangles
+At the crack of your whip —
+Tearing my blackened back.
+My naked breast
+Scrapes raw against the bark.</p>
+<p>At every scream,
+Heartless old woman,
+You strike me harder.
+My pain is pierced through
+By the fury of your hatred
+That will not let you breathe</p>
+<p>From torn wrists
+Blood drips,
+Mixes with tears,
+Blinds me.</p>
+<p>Everything burns.
+I choke in the despair
+Of useless prayers
+Raised to you —
+Treacherous idol.</p>
+<p>Again.
+Again.
+And again —
+The whip strikes.
+I can no longer cry out.
+My legs abandon me.
+On my knees I invoke death.</p>
+<p>Perhaps
+The hand of a merciful god
+Lifts my chin,
+Gives me breath to whisper:
+"If... you were me...
+And I, you...
+I would not strike you... so"</p>
+<p>A god more merciful still
+Must have touched your heart.
+You stopped
+Untied me
+And with shame you walked away —
+Bent beneath the weight
+Of your own bitterness</p>
+<p>I lie abandoned
+At the foot of the cursed tree —
+In blood,
+In tears
+And in piss —
+Like the image
+Of that helpless youth</p>
+<p>You call God!
+You call God.
+You call God!</p>
+      </div>
+    </div>
+    <a href="#top" class="back-to-top">↑ Back to tracklist</a>
+  </article>
+
+</main>
+
+<footer class="footer">
+  <div class="container">
+    <div class="footer-brand">Giovanni Gut <span class="amp">&</span> AI</div>
+    <div class="footer-copy">© 2026 Giovanni Gut & AI</div>
+  </div>
+</footer>
+
+</body>
+</html>

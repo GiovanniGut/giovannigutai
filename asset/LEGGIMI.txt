@@ -1,0 +1,40 @@
+╔══════════════════════════════════════════════════╗
+║  GIOVANNI GUT & AI — IMMAGINI DA AGGIUNGERE     ║
+╚══════════════════════════════════════════════════╝
+
+In questa cartella servono DUE file:
+
+
+1. album.jpg
+   ─────────
+   Copertina dell'album "What Echoes Back"
+   • Dimensione: 1200 × 1200 px (quadrata)
+   • Formato: JPG, qualità 80-85%
+   • Peso ideale: sotto 150 KB
+   • Dove appare: sezione album + Open Graph (anteprima link)
+
+   NOTA: Il file master per Spotify/Apple Music deve essere
+   3000×3000px — quello è un file separato, NON va sul sito.
+   Per il sito usa la versione 1200×1200.
+
+
+2. artist.jpg
+   ──────────
+   Foto ritratto di Giovanni
+   • Dimensione: 800 × 800 px (o 800 × 1000 px)
+   • Formato: JPG, qualità 80-85%
+   • Peso ideale: sotto 120 KB
+   • Dove appare: sfondo hero (con overlay scuro) + sezione "Chi"
+
+   CONSIGLIO: Foto in luce naturale, toni caldi, sfondo non
+   distraente. Il sito applica un overlay scuro sopra, quindi
+   anche una foto luminosa funziona bene.
+
+
+COME RIDURRE IL PESO:
+   Se le foto pesano troppo, usa https://squoosh.app
+   (gratuito, funziona nel browser). Trascina la foto,
+   scegli JPG, abbassa la qualità fino a stare sotto il target.
+
+
+UNA VOLTA AGGIUNTI I DUE FILE, IL SITO È PRONTO.

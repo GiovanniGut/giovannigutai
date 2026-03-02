@@ -1,0 +1,902 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Giovanni Gut & AI — Poesia, Intelligenza Artificiale, Sound Design</title>
+<meta name="description" content="Giovanni Gut & AI — Dove la poesia incontra l'intelligenza artificiale e il sound design. Ascolta What Echoes Back.">
+<meta property="og:title" content="Giovanni Gut & AI">
+<meta property="og:description" content="Dove la poesia incontra l'intelligenza artificiale e il sound design.">
+<meta property="og:image" content="assets/album.jpeg">
+<meta property="og:type" content="music.musician">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400;1,600&family=Space+Grotesk:wght@300;400;500;600;700&family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+  :root {
+    --indaco: #5C4FE8;
+    --rosso: #E53935;
+    --abisso: #1A1A2E;
+    --deep: #0B0B14;
+    --amber: #C4882F;
+    --amber-soft: #D4993F;
+    --cenere: #8888A0;
+    --sabbia: #E8E4DD;
+    --avorio: #F5F0EB;
+    --white: #FFFFFF;
+    --grain: url("data:image/svg+xml,%3Csvg viewBox='0 0 512 512' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.08'/%3E%3C/svg%3E");
+  }
+
+  html {
+    scroll-behavior: smooth;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  body {
+    font-family: 'Inter', sans-serif;
+    background: var(--deep);
+    color: var(--white);
+    line-height: 1.6;
+    overflow-x: hidden;
+  }
+
+  body::after {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background: var(--grain);
+    pointer-events: none;
+    z-index: 9999;
+  }
+
+  .container {
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 0 24px;
+  }
+
+  /* ===== NAV ===== */
+  .nav {
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    z-index: 100;
+    padding: 20px 0;
+    transition: background 0.4s ease, backdrop-filter 0.4s ease;
+  }
+  .nav.scrolled {
+    background: rgba(11, 11, 20, 0.88);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+  }
+  .nav .container {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    gap: 32px;
+  }
+  .nav-links {
+    display: flex;
+    gap: 32px;
+    list-style: none;
+  }
+  .nav-links a {
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: 12px;
+    font-weight: 500;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    color: var(--cenere);
+    text-decoration: none;
+    transition: color 0.3s ease;
+  }
+  .nav-links a:hover { color: var(--white); }
+  .nav-lang {
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    color: var(--cenere);
+    text-decoration: none;
+    padding: 4px 10px;
+    border: 1px solid rgba(255,255,255,0.12);
+    border-radius: 4px;
+    transition: all 0.3s ease;
+  }
+  .nav-lang:hover {
+    color: var(--white);
+    border-color: rgba(255,255,255,0.3);
+  }
+
+  /* ===== HERO ===== */
+  .hero {
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    overflow: hidden;
+    padding: 120px 24px 80px;
+  }
+  .hero-bg {
+    position: absolute;
+    inset: 0;
+    z-index: 0;
+  }
+  .hero-bg img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center 20%;
+    opacity: 0.3;
+    filter: saturate(0.6);
+  }
+  .hero-bg::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background:
+      linear-gradient(180deg, var(--deep) 0%, transparent 30%, transparent 60%, var(--deep) 100%),
+      linear-gradient(90deg, var(--deep) 0%, transparent 30%, transparent 70%, var(--deep) 100%);
+  }
+  .hero-content {
+    position: relative;
+    z-index: 1;
+    text-align: center;
+    max-width: 700px;
+  }
+  .hero-label {
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 4px;
+    text-transform: uppercase;
+    color: var(--amber-soft);
+    margin-bottom: 24px;
+    opacity: 0;
+    animation: fadeUp 1s ease 0.2s forwards;
+  }
+  .hero-title {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(48px, 8vw, 88px);
+    font-weight: 700;
+    line-height: 0.95;
+    letter-spacing: -2px;
+    margin-bottom: 12px;
+    opacity: 0;
+    animation: fadeUp 1s ease 0.4s forwards;
+  }
+  .hero-title .amp {
+    font-style: italic;
+    font-weight: 400;
+    color: var(--amber-soft);
+  }
+  .hero-epigraph {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(16px, 2.5vw, 22px);
+    font-weight: 400;
+    font-style: italic;
+    color: rgba(255,255,255,0.4);
+    margin-bottom: 40px;
+    max-width: 480px;
+    margin-left: auto;
+    margin-right: auto;
+    line-height: 1.45;
+    opacity: 0;
+    animation: fadeUp 1s ease 0.6s forwards;
+  }
+  .hero-cta {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: 13px;
+    font-weight: 600;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    color: var(--deep);
+    background: var(--amber-soft);
+    padding: 14px 36px;
+    border-radius: 4px;
+    text-decoration: none;
+    transition: all 0.3s ease;
+    opacity: 0;
+    animation: fadeUp 1s ease 0.8s forwards;
+  }
+  .hero-cta:hover {
+    background: var(--white);
+    transform: translateY(-2px);
+    box-shadow: 0 8px 32px rgba(196, 136, 47, 0.25);
+  }
+  .hero-cta svg { width: 14px; height: 14px; fill: currentColor; }
+  .hero-scroll {
+    position: absolute;
+    bottom: 40px;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 1;
+    opacity: 0;
+    animation: fadeUp 1s ease 1.2s forwards;
+  }
+  .hero-scroll span {
+    display: block;
+    width: 1px; height: 48px;
+    background: linear-gradient(180deg, var(--amber-soft), transparent);
+    margin: 0 auto;
+    animation: scrollPulse 2s ease infinite;
+  }
+
+  /* ===== SECTION DIVIDERS ===== */
+  .section-sep {
+    height: 1px;
+    background: linear-gradient(90deg, transparent, rgba(255,255,255,0.07), transparent);
+  }
+
+  /* ===== ALBUM ===== */
+  .album {
+    padding: 120px 0;
+    position: relative;
+  }
+  .album::before {
+    content: '';
+    position: absolute;
+    top: -200px; left: 50%;
+    transform: translateX(-50%);
+    width: 600px; height: 600px;
+    background: radial-gradient(circle, rgba(229, 57, 53, 0.06) 0%, transparent 70%);
+    pointer-events: none;
+  }
+  .album-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 64px;
+    align-items: start;
+  }
+  .album-cover-area { position: relative; }
+  .album-cover img {
+    width: 100%;
+    border-radius: 8px;
+    box-shadow: 0 24px 80px rgba(0,0,0,0.5), 0 4px 24px rgba(229, 57, 53, 0.15);
+    transition: transform 0.5s ease, box-shadow 0.5s ease;
+  }
+  .album-cover:hover img {
+    transform: translateY(-4px) scale(1.01);
+    box-shadow: 0 32px 100px rgba(0,0,0,0.6), 0 8px 40px rgba(92, 79, 232, 0.2);
+  }
+  .album-cover::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    border-radius: 8px;
+    border: 1px solid rgba(255,255,255,0.06);
+    pointer-events: none;
+  }
+
+  /* Album info */
+  .album-info { max-width: 440px; }
+  .album-label {
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    color: var(--rosso);
+    margin-bottom: 16px;
+  }
+  .album-title {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(32px, 5vw, 44px);
+    font-weight: 700;
+    line-height: 1.05;
+    letter-spacing: -1px;
+    margin-bottom: 20px;
+  }
+  .album-meta {
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: 12px;
+    color: var(--cenere);
+    margin-bottom: 28px;
+    display: flex;
+    align-items: center;
+    gap: 16px;
+  }
+  .album-meta .dot {
+    width: 4px; height: 4px;
+    border-radius: 50%;
+    background: var(--amber-soft);
+  }
+  .album-desc {
+    font-size: 15px;
+    line-height: 1.7;
+    color: rgba(255,255,255,0.45);
+    margin-bottom: 28px;
+  }
+
+  /* Lyrics CTA */
+  .lyrics-cta {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: 13px;
+    font-weight: 600;
+    letter-spacing: 1.2px;
+    text-transform: uppercase;
+    color: var(--amber-soft);
+    text-decoration: none;
+    padding: 12px 24px;
+    margin-bottom: 32px;
+    border: 1px solid rgba(196, 136, 47, 0.35);
+    border-radius: 4px;
+    background: rgba(196, 136, 47, 0.06);
+    transition: all 0.3s ease;
+  }
+  .lyrics-cta:hover {
+    color: var(--white);
+    background: rgba(196, 136, 47, 0.12);
+    border-color: rgba(196, 136, 47, 0.5);
+    transform: translateY(-1px);
+  }
+  .lyrics-cta svg { width: 16px; height: 16px; fill: none; stroke: currentColor; stroke-width: 1.5; }
+
+  /* ===== STREAMING ===== */
+  .streaming-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 8px;
+  }
+  .stream-btn {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 12px 16px;
+    border-radius: 6px;
+    background: rgba(255,255,255,0.04);
+    border: 1px solid rgba(255,255,255,0.06);
+    text-decoration: none;
+    color: var(--white);
+    transition: all 0.3s ease;
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: 12px;
+    font-weight: 500;
+  }
+  .stream-btn:hover {
+    background: rgba(255,255,255,0.08);
+    border-color: rgba(255,255,255,0.12);
+    transform: translateY(-1px);
+  }
+  .stream-btn svg {
+    width: 18px; height: 18px;
+    flex-shrink: 0;
+    opacity: 0.6;
+  }
+  .stream-btn:hover svg { opacity: 1; }
+
+  /* ===== PROCESS ===== */
+  .process {
+    padding: 120px 0;
+    position: relative;
+  }
+  .process::before {
+    content: '';
+    position: absolute;
+    top: 50%; left: 50%;
+    transform: translate(-50%, -50%);
+    width: 800px; height: 800px;
+    background: radial-gradient(circle, rgba(92, 79, 232, 0.04) 0%, transparent 60%);
+    pointer-events: none;
+  }
+  .process-header {
+    text-align: center;
+    max-width: 560px;
+    margin: 0 auto 72px;
+  }
+  .process-label {
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    color: var(--indaco);
+    margin-bottom: 16px;
+  }
+  .process-title {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(28px, 4vw, 38px);
+    font-weight: 700;
+    line-height: 1.1;
+    margin-bottom: 20px;
+  }
+  .process-intro {
+    font-size: 15px;
+    line-height: 1.7;
+    color: rgba(255,255,255,0.45);
+  }
+
+  /* Steps */
+  .process-steps {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 32px;
+    position: relative;
+  }
+  .process-steps::before {
+    content: '';
+    position: absolute;
+    top: 40px;
+    left: calc(16.66% + 16px);
+    right: calc(16.66% + 16px);
+    height: 1px;
+    background: linear-gradient(90deg, var(--indaco), var(--amber-soft), var(--rosso));
+    opacity: 0.25;
+  }
+  .step {
+    text-align: center;
+    position: relative;
+  }
+  .step-icon {
+    width: 80px; height: 80px;
+    margin: 0 auto 24px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    z-index: 1;
+  }
+  .step-icon svg { width: 32px; height: 32px; opacity: 0.8; }
+  .step:nth-child(1) .step-icon {
+    background: linear-gradient(135deg, rgba(92,79,232,0.15), rgba(92,79,232,0.05));
+    border: 1px solid rgba(92,79,232,0.2);
+    color: var(--indaco);
+  }
+  .step:nth-child(2) .step-icon {
+    background: linear-gradient(135deg, rgba(212,153,63,0.15), rgba(212,153,63,0.05));
+    border: 1px solid rgba(212,153,63,0.2);
+    color: var(--amber-soft);
+  }
+  .step:nth-child(3) .step-icon {
+    background: linear-gradient(135deg, rgba(229,57,53,0.15), rgba(229,57,53,0.05));
+    border: 1px solid rgba(229,57,53,0.2);
+    color: var(--rosso);
+  }
+  .step-num {
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: 10px;
+    font-weight: 600;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: var(--cenere);
+    margin-bottom: 10px;
+  }
+  .step-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 20px;
+    font-weight: 700;
+    margin-bottom: 12px;
+  }
+  .step-text {
+    font-size: 13px;
+    line-height: 1.65;
+    color: rgba(255,255,255,0.4);
+    max-width: 280px;
+    margin: 0 auto;
+  }
+
+  /* Process quote */
+  .process-quote {
+    margin-top: 72px;
+    text-align: center;
+    padding: 40px;
+    border-radius: 12px;
+    background: rgba(255,255,255,0.02);
+    border: 1px solid rgba(255,255,255,0.04);
+    position: relative;
+  }
+  .process-quote::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 50%;
+    transform: translateX(-50%);
+    width: 48px; height: 3px;
+    border-radius: 2px;
+    background: linear-gradient(90deg, var(--indaco), var(--rosso));
+  }
+  .process-quote blockquote {
+    font-family: 'Playfair Display', serif;
+    font-style: italic;
+    font-size: clamp(18px, 2.5vw, 24px);
+    line-height: 1.5;
+    color: rgba(255,255,255,0.5);
+    max-width: 600px;
+    margin: 0 auto;
+  }
+  .process-quote cite {
+    display: block;
+    margin-top: 16px;
+    font-family: 'Space Grotesk', sans-serif;
+    font-style: normal;
+    font-size: 12px;
+    letter-spacing: 1px;
+    color: var(--cenere);
+  }
+
+  /* ===== ABOUT ===== */
+  .about {
+    padding: 120px 0;
+    position: relative;
+  }
+  .about-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 80px;
+    align-items: start;
+  }
+  .about-image { position: relative; }
+  .about-image img {
+    width: 100%;
+    border-radius: 8px;
+    filter: saturate(0.8);
+    box-shadow: 0 24px 80px rgba(0,0,0,0.4);
+  }
+  .about-image::before {
+    content: '';
+    position: absolute;
+    top: -12px; left: -12px;
+    right: 12px; bottom: 12px;
+    border: 1px solid var(--amber-soft);
+    border-radius: 8px;
+    opacity: 0.12;
+    z-index: -1;
+  }
+  .about-content { padding-top: 16px; }
+  .about-label {
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    color: var(--indaco);
+    margin-bottom: 20px;
+  }
+  .about-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 32px;
+    font-weight: 700;
+    line-height: 1.1;
+    margin-bottom: 28px;
+  }
+  .about-text {
+    font-size: 15px;
+    line-height: 1.8;
+    color: rgba(255,255,255,0.45);
+    margin-bottom: 20px;
+  }
+  .about-text em {
+    font-family: 'Playfair Display', serif;
+    font-style: italic;
+    color: rgba(255,255,255,0.6);
+    font-size: 16px;
+  }
+  .about-signature {
+    margin-top: 32px;
+    padding-top: 24px;
+    border-top: 1px solid rgba(255,255,255,0.06);
+    display: flex;
+    align-items: center;
+    gap: 16px;
+  }
+  .about-signature .sig-bar {
+    width: 3px; height: 36px;
+    border-radius: 2px;
+    background: linear-gradient(180deg, var(--indaco), var(--rosso));
+  }
+  .about-signature .sig-text {
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: 13px;
+    font-weight: 500;
+    color: var(--cenere);
+    line-height: 1.5;
+  }
+  .about-signature .sig-text strong {
+    display: block;
+    color: var(--white);
+    font-family: 'Playfair Display', serif;
+    font-size: 16px;
+    font-weight: 600;
+  }
+
+  /* ===== FOOTER ===== */
+  .footer { padding: 60px 0 40px; }
+  .footer-content { text-align: center; }
+  .footer-brand {
+    font-family: 'Playfair Display', serif;
+    font-size: 24px;
+    font-weight: 700;
+    margin-bottom: 6px;
+    letter-spacing: -0.5px;
+  }
+  .footer-brand .amp { font-style: italic; font-weight: 400; color: var(--amber-soft); }
+  .footer-tagline {
+    font-family: 'Playfair Display', serif;
+    font-style: italic;
+    font-size: 14px;
+    color: rgba(255,255,255,0.25);
+    margin-bottom: 28px;
+  }
+  .footer-platforms {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    margin-bottom: 32px;
+    flex-wrap: wrap;
+  }
+  .footer-platforms a {
+    color: var(--cenere);
+    text-decoration: none;
+    transition: color 0.3s ease, transform 0.3s ease;
+  }
+  .footer-platforms a:hover { color: var(--white); transform: translateY(-2px); }
+  .footer-platforms a svg { width: 20px; height: 20px; }
+  .footer-line {
+    width: 48px; height: 3px;
+    border-radius: 2px;
+    background: linear-gradient(90deg, var(--indaco), var(--rosso));
+    margin: 0 auto 20px;
+  }
+  .footer-copy {
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: 11px;
+    color: rgba(255,255,255,0.18);
+    letter-spacing: 1px;
+  }
+
+  /* ===== ANIMATIONS ===== */
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(24px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+  @keyframes scrollPulse {
+    0%, 100% { opacity: 0.4; transform: scaleY(1); }
+    50% { opacity: 0.8; transform: scaleY(1.2); }
+  }
+  .reveal {
+    opacity: 0;
+    transform: translateY(32px);
+    transition: opacity 0.8s ease, transform 0.8s ease;
+  }
+  .reveal.visible { opacity: 1; transform: translateY(0); }
+
+  /* ===== RESPONSIVE ===== */
+  @media (max-width: 900px) {
+    .process-steps { grid-template-columns: 1fr; gap: 48px; max-width: 360px; margin: 0 auto; }
+    .process-steps::before { display: none; }
+  }
+  @media (max-width: 768px) {
+    .nav-links { display: none; }
+    .nav .container { justify-content: flex-end; }
+    .hero { min-height: 100svh; padding: 100px 24px 80px; }
+    .hero-title { letter-spacing: -1px; }
+    .album { padding: 80px 0; }
+    .album-grid { grid-template-columns: 1fr; gap: 48px; }
+    .album-cover-area { max-width: 380px; margin: 0 auto; }
+    .album-info { max-width: 100%; text-align: center; }
+    .album-meta { justify-content: center; }
+    .lyrics-cta { margin-left: auto; margin-right: auto; }
+    .streaming-grid { max-width: 420px; margin: 0 auto; }
+    .process { padding: 80px 0; }
+    .about { padding: 80px 0; }
+    .about-grid { grid-template-columns: 1fr; gap: 48px; }
+    .about-image { max-width: 340px; margin: 0 auto; }
+    .about-image::before { display: none; }
+  }
+  @media (max-width: 480px) {
+    .hero-cta { width: 100%; justify-content: center; }
+    .album-title { font-size: 28px; }
+    .streaming-grid { grid-template-columns: 1fr; }
+    .about-title { font-size: 26px; }
+    .process-title { font-size: 26px; }
+  }
+</style>
+</head>
+<body>
+
+<!-- ===== NAV ===== -->
+<nav class="nav" id="nav">
+  <div class="container">
+    <ul class="nav-links">
+      <li><a href="#musica">Musica</a></li>
+      <li><a href="#processo">Processo</a></li>
+      <li><a href="#chi">Chi</a></li>
+    </ul>
+    <a href="en/index.html" class="nav-lang">EN</a>
+  </div>
+</nav>
+
+<!-- ===== HERO ===== -->
+<section class="hero" id="home">
+  <div class="hero-bg">
+    <img src="assets/artist.jpeg" alt="Giovanni Gut & AI" loading="eager">
+  </div>
+  <div class="hero-content">
+    <div class="hero-label">Poesia · AI · Sound Design</div>
+    <h1 class="hero-title">Giovanni Gut <span class="amp">&</span> AI</h1>
+    <p class="hero-epigraph">quello che era muto / trova una lingua per raccontarsi</p>
+  </div>
+  <div class="hero-scroll"><span></span></div>
+</section>
+
+<!-- ===== ALBUM ===== -->
+<section class="album" id="musica">
+  <div class="container">
+    <div class="album-grid">
+
+      <div class="album-cover-area reveal">
+        <div class="album-cover">
+          <img src="assets/album.jpeg" alt="What Echoes Back — Giovanni Gut & AI" loading="lazy">
+        </div>
+      </div>
+
+      <div class="album-info reveal" style="transition-delay: 0.15s;">
+        <div class="album-label">Ultimo Progetto</div>
+        <h2 class="album-title">What Echoes Back</h2>
+        <div class="album-meta">
+          <span>Giovanni Gut & AI</span>
+          <span class="dot"></span>
+          <span>2026</span>
+        </div>
+        <p class="album-desc">
+          La poesia incontra la macchina. Le parole trovano un corpo fatto di frequenze, texture e silenzio. Ciò che riecheggia è <em>What Echoes Back</em>.
+        </p>
+
+        <!-- CTA verso i testi -->
+        <a href="lyrics.html" class="lyrics-cta">
+          <svg viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8" fill="none" stroke="currentColor" stroke-width="1.5"/><line x1="8" y1="13" x2="16" y2="13" stroke="currentColor" stroke-width="1.5"/><line x1="8" y1="17" x2="13" y2="17" stroke="currentColor" stroke-width="1.5"/></svg>
+          Le parole dietro la musica
+        </a>
+
+        <!-- 4 piattaforme — Sostituisci # con link reali -->
+        <div class="streaming-grid">
+          <a href="https://open.spotify.com/intl-it/album/38TB5MOKLBA4K6tYWxvFot?si=Rn4ALAiRR6SYafKiLO12Tw" class="stream-btn" target="_blank" rel="noopener">
+            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.4 0 0 5.4 0 12s5.4 12 12 12 12-5.4 12-12S18.66 0 12 0zm5.521 17.34c-.24.359-.66.48-1.021.24-2.82-1.74-6.36-2.101-10.561-1.141-.418.122-.779-.179-.899-.539-.12-.421.18-.78.54-.9 4.56-1.021 8.52-.6 11.64 1.32.42.18.479.659.301 1.02zm1.44-3.3c-.301.42-.841.6-1.262.3-3.239-1.98-8.159-2.58-11.939-1.38-.479.12-1.02-.12-1.14-.6-.12-.48.12-1.021.6-1.141C9.6 9.9 15 10.561 18.72 12.84c.361.181.54.78.241 1.2zm.12-3.36C15.24 8.4 8.82 8.16 5.16 9.301c-.6.179-1.2-.181-1.38-.721-.18-.601.18-1.2.72-1.381 4.26-1.26 11.28-1.02 15.721 1.621.539.3.719 1.02.419 1.56-.299.421-1.02.599-1.559.3z"/></svg>
+            Spotify
+          </a>
+          <a href="https://music.apple.com/it/album/what-echoes-back/1879243902" class="stream-btn" target="_blank" rel="noopener">
+            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.8-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M13 3.5c.73-.83 1.94-1.46 2.94-1.5.13 1.17-.34 2.35-1.04 3.19-.69.85-1.83 1.51-2.95 1.42-.15-1.15.41-2.35 1.05-3.11z"/></svg>
+            Apple Music
+          </a>
+          <a href="#" class="stream-btn" target="_blank" rel="noopener">
+            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/></svg>
+            YouTube
+          </a>
+          <a href="https://music.amazon.it/albums/B0GP72PWJ4?marketplaceId=APJ6JRA9NG5V4&musicTerritory=IT&ref=dm_sh_HDCWnRpAtBaLaLEfrk2J20yyP" class="stream-btn" target="_blank" rel="noopener">
+            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M13.958 10.09c0 1.232.029 2.256-.591 3.351-.502.891-1.301 1.438-2.186 1.438-1.214 0-1.922-.924-1.922-2.292 0-2.692 2.415-3.182 4.7-3.182v.685zm3.186 7.705a.66.66 0 0 1-.753.077c-1.06-.881-1.25-1.29-1.834-2.13-1.753 1.788-2.994 2.325-5.268 2.325-2.689 0-4.789-1.66-4.789-4.981 0-2.594 1.405-4.361 3.406-5.221 1.731-.761 4.151-.897 6.002-1.106v-.413c0-.761.059-1.66-.389-2.317-.389-.59-1.137-.834-1.797-.834-1.222 0-2.309.627-2.575 1.926-.054.29-.267.574-.559.588l-3.134-.338c-.264-.059-.557-.271-.48-.674C5.771 1.483 8.898 0 11.738 0c1.428 0 3.292.381 4.416 1.461 1.428 1.355 1.293 3.164 1.293 5.134v4.649c0 1.398.581 2.011 1.128 2.766.191.267.234.588-.012.786-.613.515-1.705 1.473-2.305 2.011l-.012-.012z"/><path d="M21.893 19.217C19.31 21.24 15.474 22.314 12.171 22.314c-4.645 0-8.828-1.718-11.992-4.576-.249-.225-.026-.531.272-.357 3.415 1.986 7.634 3.181 11.992 3.181 2.941 0 6.172-.609 9.149-1.872.449-.191.824.296.301.527z"/><path d="M22.926 18.006c-.339-.434-2.244-.205-3.098-.103-.26.031-.3-.195-.066-.359 1.518-1.067 4.007-.759 4.296-.401.29.361-.076 2.86-1.5 4.052-.219.184-.428.086-.33-.157.321-.8 1.04-2.598.698-3.032z"/></svg>
+            Amazon Music
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="section-sep"></div>
+
+<!-- ===== PROCESS ===== -->
+<section class="process" id="processo">
+  <div class="container">
+    <div class="process-header reveal">
+      <div class="process-label">Il Processo</div>
+      <h2 class="process-title">Dalla parola scritta<br>al suono</h2>
+      <p class="process-intro">
+        Cercavo uno strumento. Ho trovato una voce.
+      </p>
+    </div>
+
+    <div class="process-steps">
+      <div class="step reveal">
+        <div class="step-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 20h9"/><path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"/></svg>
+        </div>
+        <div class="step-num">01</div>
+        <h3 class="step-title">La Parola</h3>
+        <p class="step-text">Si parte da un'idea, un verso, un'immagine. La materia prima è sempre umana: parole plasmate dall'esperienza, dal silenzio, dall'intenzione.</p>
+      </div>
+
+      <div class="step reveal" style="transition-delay: 0.15s;">
+        <div class="step-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/><path d="M8 9h2m4 0h2M8 13h8" opacity="0.4"/></svg>
+        </div>
+        <div class="step-num">02</div>
+        <h3 class="step-title">Il Confronto</h3>
+        <p class="step-text">Io porto le parole, l'AI le traduce in forme nuove — suoni, melodie, texture. A ogni scambio le parole scavano più a fondo. Nel confronto, i versi si scoprono: cambiano suono e cambiano senso.</p>
+      </div>
+
+      <div class="step reveal" style="transition-delay: 0.3s;">
+        <div class="step-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18V5l12-2v13"/><circle cx="6" cy="18" r="3"/><circle cx="18" cy="16" r="3"/></svg>
+        </div>
+        <div class="step-num">03</div>
+        <h3 class="step-title">La Profondità</h3>
+        <p class="step-text">Quello che emerge non è né la poesia originale né una produzione della macchina. È qualcosa che ha attraversato il confronto — parole e suoni con una profondità che prima non avevano. Quello che ascolti è il punto in cui si sono incontrate.</p>
+      </div>
+    </div>
+
+    <div class="process-quote reveal">
+      <blockquote>"Io posso generare bellezza formale, tu devi verificare se è bellezza autentica."</blockquote>
+      <cite>— L'AI, durante la creazione di <em>Indigo Nostalgia</em></cite>
+    </div>
+  </div>
+</section>
+
+<div class="section-sep"></div>
+
+<!-- ===== ABOUT ===== -->
+<section class="about" id="chi">
+  <div class="container">
+    <div class="about-grid">
+      <div class="about-image reveal">
+        <img src="assets/artist.jpeg" alt="Giovanni Gut" loading="lazy">
+      </div>
+      <div class="about-content reveal" style="transition-delay: 0.15s;">
+        <div class="about-label">Chi</div>
+        <p class="about-text">
+          Sono un poeta. Quando ho affidato i miei versi a un'intelligenza artificiale, è successa una cosa che non mi aspettavo: per spiegarle le mie parole, ho dovuto capirle meglio io stesso. Da quel confronto è nata la musica — non generata, co-creata.
+        </p>
+        <div class="about-signature">
+          <div class="sig-bar"></div>
+          <div class="sig-text">
+            <strong>Giovanni Gut</strong>
+            Poeta · Coach · AI Trainer
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="section-sep"></div>
+
+<!-- ===== FOOTER ===== -->
+<footer class="footer">
+  <div class="container">
+    <div class="footer-content">
+      <div class="footer-brand">Giovanni Gut <span class="amp">&</span> AI</div>
+
+      <div class="footer-platforms">
+        <a href="https://open.spotify.com/intl-it/artist/3VxE8q0kaMzY0BAZAMluey?si=Ccv2TZcKRd2zo-oWH-Plzw" target="_blank" rel="noopener" aria-label="Spotify"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.4 0 0 5.4 0 12s5.4 12 12 12 12-5.4 12-12S18.66 0 12 0zm5.521 17.34c-.24.359-.66.48-1.021.24-2.82-1.74-6.36-2.101-10.561-1.141-.418.122-.779-.179-.899-.539-.12-.421.18-.78.54-.9 4.56-1.021 8.52-.6 11.64 1.32.42.18.479.659.301 1.02zm1.44-3.3c-.301.42-.841.6-1.262.3-3.239-1.98-8.159-2.58-11.939-1.38-.479.12-1.02-.12-1.14-.6-.12-.48.12-1.021.6-1.141C9.6 9.9 15 10.561 18.72 12.84c.361.181.54.78.241 1.2zm.12-3.36C15.24 8.4 8.82 8.16 5.16 9.301c-.6.179-1.2-.181-1.38-.721-.18-.601.18-1.2.72-1.381 4.26-1.26 11.28-1.02 15.721 1.621.539.3.719 1.02.419 1.56-.299.421-1.02.599-1.559.3z"/></svg></a>
+        <a href="https://music.apple.com/it/artist/giovanni-gut-ai/1879868247" target="_blank" rel="noopener" aria-label="Apple Music"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.8-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M13 3.5c.73-.83 1.94-1.46 2.94-1.5.13 1.17-.34 2.35-1.04 3.19-.69.85-1.83 1.51-2.95 1.42-.15-1.15.41-2.35 1.05-3.11z"/></svg></a>
+        <a href="https://youtube.com/@giovannigutai?si=1oTDJMX0kGkeGjpp" target="_blank" rel="noopener" aria-label="YouTube"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/></svg></a>
+        <a href="https://music.amazon.it/artists/B0GP8TVLW6/giovanni-gut-ai?marketplaceId=APJ6JRA9NG5V4&musicTerritory=IT&ref=dm_sh_xwPKU1flpckwatMqPs1lY2SPy" target="_blank" rel="noopener" aria-label="Amazon Music"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M13.958 10.09c0 1.232.029 2.256-.591 3.351-.502.891-1.301 1.438-2.186 1.438-1.214 0-1.922-.924-1.922-2.292 0-2.692 2.415-3.182 4.7-3.182v.685zm3.186 7.705a.66.66 0 0 1-.753.077c-1.06-.881-1.25-1.29-1.834-2.13-1.753 1.788-2.994 2.325-5.268 2.325-2.689 0-4.789-1.66-4.789-4.981 0-2.594 1.405-4.361 3.406-5.221 1.731-.761 4.151-.897 6.002-1.106v-.413c0-.761.059-1.66-.389-2.317-.389-.59-1.137-.834-1.797-.834-1.222 0-2.309.627-2.575 1.926-.054.29-.267.574-.559.588l-3.134-.338c-.264-.059-.557-.271-.48-.674C5.771 1.483 8.898 0 11.738 0c1.428 0 3.292.381 4.416 1.461 1.428 1.355 1.293 3.164 1.293 5.134v4.649c0 1.398.581 2.011 1.128 2.766.191.267.234.588-.012.786-.613.515-1.705 1.473-2.305 2.011l-.012-.012z"/><path d="M21.893 19.217C19.31 21.24 15.474 22.314 12.171 22.314c-4.645 0-8.828-1.718-11.992-4.576-.249-.225-.026-.531.272-.357 3.415 1.986 7.634 3.181 11.992 3.181 2.941 0 6.172-.609 9.149-1.872.449-.191.824.296.301.527z"/><path d="M22.926 18.006c-.339-.434-2.244-.205-3.098-.103-.26.031-.3-.195-.066-.359 1.518-1.067 4.007-.759 4.296-.401.29.361-.076 2.86-1.5 4.052-.219.184-.428.086-.33-.157.321-.8 1.04-2.598.698-3.032z"/></svg></a>
+      </div>
+      <div class="footer-line"></div>
+      <div class="footer-copy">© 2026 Giovanni Gut & AI</div>
+    </div>
+  </div>
+</footer>
+
+<script>
+  const nav = document.getElementById('nav');
+  window.addEventListener('scroll', () => {
+    nav.classList.toggle('scrolled', window.scrollY > 60);
+  });
+  const reveals = document.querySelectorAll('.reveal');
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) { entry.target.classList.add('visible'); observer.unobserve(entry.target); }
+    });
+  }, { threshold: 0.15, rootMargin: '0px 0px -40px 0px' });
+  reveals.forEach(el => observer.observe(el));
+  document.querySelectorAll('a[href^="#"]').forEach(a => {
+    a.addEventListener('click', e => {
+      e.preventDefault();
+      const target = document.querySelector(a.getAttribute('href'));
+      if (target) target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    });
+  });
+</script>
+
+</body>
+</html>
